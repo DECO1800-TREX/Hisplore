@@ -145,36 +145,6 @@
 	    
         // --------------- Some Function ------------------- \\
       	
-        // function get_lat_lng(arr){
-        //   var result = [];
-        //   //console.log(arr);
-        //   $.each(arr,function(index,item){
-            
-        //     var url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBGW7c_hlZRJX3QGsDwkrAicn40AoiIZGs&address="+item.state;
-        //       //console.log(url);
-        //     $.getJSON(url,function(data){
-
-        //       var obj = {}
-        //       obj.lat = data.results[0].geometry.location.lat;
-        //       obj.lng = data.results[0].geometry.location.lng;
-        //       obj.troveUrl = item.troveUrl; 
-        //               //console.log(obj);
-        //       result.push(obj);
-        //               //console.log(result);
-        //       // console.log(data.results[0].geometry.location.lat);
-        //       // console.log(data.results[0].geometry.location.lng);
-        //     })
-            
-
-        //   });
-          
-        //   $(document).ajaxStop(function() {
-        //     //console.log(result);
-        //     addToMarkers(result,map);
-        //   });
-          
-          
-        //}
 
         function get_newspaper(searchTerm,year,max_num){
           $('#loading').show();
@@ -188,6 +158,7 @@
               news = data.response.records.newspaper;
               //console.log(news);
               $.each(news,function(index,item){
+              	// check for me if National is the state???
                 if (item.state=="National"){
                   return; // continue
                 }
@@ -200,106 +171,65 @@
                 obj.state = item.state.toLowerCase();
                 obj.troveUrl = item.troveUrl;
                 obj.title = item.title;
-                result.push(obj);
+                addToMarkers(obj,map);
               });
             });
 
           }
-          $(document).ajaxStop(function() {
-            console.log(result);
-            addToMarkers(result,map);
-          });
+          
           
           //return result;
         }
         function addToMarkers(list,map){
-          //console.log(list);
-          for (var i in list){
-            var ran_const = 1.5;
-            var geotmp = $.extend({},geo[list[i].state]);
-            var obj = {};
-            //console.log(geotmp[0]);
-            var tmp = Math.random();
-            if (tmp>0.5){
-              tmp2 = Math.random()*ran_const;
-              tmp3 = Math.random()*ran_const;
-              geotmp[0] += tmp2;
-              geotmp[1] += tmp3;
-            }
-            else{
-              tmp2 = Math.random()*ran_const;
-              tmp3 = Math.random()*ran_const;
-              geotmp[0] -= tmp2;
-              geotmp[1] -= tmp3;
-            }
-            var myLatlng = new google.maps.LatLng(geotmp[0],geotmp[1]);
-            var marker = new google.maps.Marker({
-              position: myLatlng,
-              map: map,
-              
-            });
+          	//console.log(list);
+          	console.log(list);
+	        
+	        var geotmp = $.extend({},geo[list.state]);
+	        var obj = {};
+	        //console.log(geotmp[0]);
+	        
+	        // the more of ran_const, the wider the spread in each marker
+	        var ran_const = 2.0;
+	        var tmp = Math.random();
+	        if (tmp>0.5){
+	          tmp2 = Math.random()*ran_const;
+	          tmp3 = Math.random()*ran_const;
+	          geotmp[0] += tmp2;
+	          geotmp[1] += tmp3;
+	        }
+	        else{
+	          tmp2 = Math.random()*ran_const;
+	          tmp3 = Math.random()*ran_const;
+	          geotmp[0] -= tmp2;
+	          geotmp[1] -= tmp3;
+	        }
+	        var myLatlng = new google.maps.LatLng(geotmp[0],geotmp[1]);
+	        
+		        
+	       	var marker = new google.maps.Marker({
+	          	position: myLatlng,
+	          	map: map,
+	      
+	    	});
+	       console.log(marker);
+	       	// contentHTML is the content of the pop-up of marker
+	      	var contentHTML = list.troveUrl + "<br>" + list.title;
+	       	var infowindow = new google.maps.InfoWindow({
+	         	content: contentHTML
+	       	});
+	       	marker.addListener('click',function(){
+	         	infowindow.open(map,marker);
+	         //map.setZoom(10);
+	         	map.setCenter(marker.getPosition());
+	       	});
 
-              var contentHTML = list[i].troveUrl + "<br>" + list[i].title;
-               var infowindow = new  google.maps.InfoWindow({
-                 content: contentHTML
-               });
-               marker.addListener('click',function(){
-                 infowindow.open(map,marker);
-                 //map.setZoom(10);
-                 map.setCenter(marker.getPosition());
-               });
 
-
-            marker.setMap(map);
-            markers.push(marker);
-          }
-          $('#loading').hide();
+	       
+	        markers.push(marker);
+	      
+	      $('#loading').hide();
         }
-      	// function addToMarkers(list,results,map,geocoder){
-      		
-      	// 	for (var i in list){
-      			
-      	// 				map.setCenter(results[0].geometry.location);
-      	// 				var marker = new google.maps.Marker({
-      	// 					map: map,
-      	// 					position: results[0].geometry.location
-      	// 				});
-      	// 				var contentHTML = 'Test popup ahihihihih';
-      	// 				var infowindow = new  google.maps.InfoWindow({
-      	// 					content: contentHTML
-      	// 				});
-      	// 				marker.addListener('click',function(){
-      	// 					infowindow.open(map,marker);
-      	// 					map.setZoom(15);
-      	// 					map.setCenter(marker.getPosition());
-      	// 				});
-      	// 				marker.setMap(null);
-      	// 				//marker.setMap(map);
-      	// 				//console.log(result)
-      	// 				result.push(marker);
-      					
-      	// 				//console.log('cc');
-      	// 			}
-      		
-      	// 	}
-      	// 	//console.log('hah')
       	
-      	
-
-      	// function deleteMarkers(mlist,map){
-      		
-      	// 	for (var i in mlist){
-      	// 		console.log(i);
-      	// 		//alert('haha');
-      	// 		mlist[i].setMap(null);
-      	// 	}
-      	// }
-
-      	// function showMarkers(mlist,map){
-      	// 	for (var i in mlist){
-      	// 		mlist[i].setMap(map);
-      	// 	}
-      	// }
       	
       	function delete_all_markers(){
           for (var i in markers){
@@ -314,55 +244,19 @@
 	              zoom: 4,
 	              center: {lat: -26.8241, lng: 133.7751}
 	            });
-	            // geocoder = new google.maps.Geocoder();
-	            // addToMarkers(vnList,vnMarkers,map,geocoder);
-	            // addToMarkers(auList,auMarkers,map,geocoder);
-	            // addToMarkers(singList,singMarkers,map,geocoder);
 	            
-	             
-	            
-	        //     document.getElementById('vn').onclick = function(){
 
-	      		// 	if (vn_isactive){
-	      		// 		deleteMarkers(vnMarkers,map);
-	      		// 		vn_isactive = false;
-	      		// 	}
-	      		// 	else{
-	      		// 		//alert('asda');
-	      		// 		showMarkers(vnMarkers,map);
-	      		// 		vn_isactive = true;
-	      		// 	}
-      			// };
-      			// document.getElementById('aus').onclick = function(){
-
-	      		// 	if (au_isactive){
-	      		// 		deleteMarkers(auMarkers,map);
-	      		// 		au_isactive = false;
-	      		// 	}
-	      		// 	else{
-	      		// 		//alert('asda');
-	      		// 		showMarkers(auMarkers,map);
-	      		// 		au_isactive = true;
-	      		// 	}
-      			// };
-      			// document.getElementById('sing').onclick = function(){
-
-	      		// 	if (sing_isactive){
-	      		// 		deleteMarkers(singMarkers,map);
-	      		// 		sing_isactive = false;
-	      		// 	}
-	      		// 	else{
-	      		// 		//alert('asda');
-	      		// 		showMarkers(singMarkers,map);
-	      		// 		sing_isactive = true;
-	      		// 	}
-      			// };
 	            
 	    }
-// ---------------Main program----------------- \\
 
 
-      	$('#loading').hide();
+    </script>
+
+	<!-- Main Sscript -->
+
+    <script type="text/javascript">
+    	// ---------------Main program----------------- \\
+        $('#loading').hide();
         dates = $('#dates').find('a');
         dates.each(function(index,data){
           //console.log(data);
@@ -378,8 +272,6 @@
           delete_all_markers();
           get_newspaper('science',year,5);
         })
-        
-      	
     </script>
     
   </body>
