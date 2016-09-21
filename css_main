@@ -1,3 +1,21 @@
 h1 {
+  color: #002a32;
+}
 
+h2 {
+  color: #27636f;
+}
+
+h1, h2, #info button, #options_button {
+  font-family: 'Special Elite', cursive;
+}
+
+h3, h4, p {
+  color: #002a32;
+  font-family: 'Oswald', sans-serif;
+}
+
+#copyright {
+  color: #dbad20;
+  font-family: 'Oswald', sans-serif;
 }
