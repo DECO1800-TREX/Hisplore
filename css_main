@@ -1,21 +1,54 @@
 h1 {
   color: #002a32;
+  text-align: center;
+  font-size: 100px;
 }
 
 h2 {
   color: #27636f;
 }
 
-h1, h2, #info button, #options_button {
+h1, h2, button {
   font-family: 'Special Elite', cursive;
 }
 
-h3, h4, p {
+h3, h4, p, label {
   color: #002a32;
   font-family: 'Oswald', sans-serif;
 }
 
-#copyright {
+.copyright {
   color: #dbad20;
   font-family: 'Oswald', sans-serif;
+	position: absolute;
+	bottom: 0%;
+	right: 0%;
+	
 }
+
+body {
+	background: url("background.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+}
+
+.help_buttons {
+	float: right;
+	text-align: center;
+	cursor: pointer;
+    width: 20%;
+	margin: 20px;
+	display: inline-block;
+	padding: 20px;
+}
+
+
+.help_buttons a {
+	font-size: 40px;
+	color: #002a32;
+	width: 100%
+}
+
+
+
