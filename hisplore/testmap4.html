@@ -130,6 +130,8 @@
 	  <!-- timeline div(NOTE must get this to perform the page refresh if possible) -->
       <div id="year" style="display:none;"></div>
     </div>
+
+
     <div id="timeline">
     <ul id="dates">
       <li><a id="1900">1900</a></li>
@@ -146,7 +148,6 @@
       <li><a id="1971">2005</a></li>
       <li><a id="1977">2010</a></li>
       <li><a id="1989">2016</a></li>
-      
     </ul>
 	
 	<!-- Stub? -->
@@ -191,9 +192,11 @@
       </div>
       
 	  <!-- this will become redundant if we put peope on to the mp directly -->
+    <!--
       <div class="col-sm-12">
         <h1> Some suggestion </h1>
       </div>
+    -->
 	  
 	  <!-- Stub? -->
       <div id="test" class="col-sm-6">
@@ -254,9 +257,13 @@
           
           //return result;
         }
+
+        //people search
         function get_people(searchTerm,year){
           var url = 'http://api.trove.nla.gov.au/result?&zone=people&encoding=json&q='
         }
+
+        //newspaper search
         function get_newspaper_by_state(searchTerm,year,state,max_num){
           $('#loading').show();
           var result= [];
@@ -386,7 +393,7 @@
             contentHTML += "<a target='_blank' href='"+troveLinks[i].troveUrl +"'>Click to go to Trove</a>"
             contentHTML += "<hr>"
           }
-
+          //this the window container for each map marker
           //var contentHTML = item.troveUrl + "<br>" + item.title;
           var infowindow = new google.maps.InfoWindow({
             content: contentHTML
@@ -480,7 +487,7 @@
             }
         }
 
-
+        //THIS is the map creation call
       	window.initMap = function() {
 	            map = new google.maps.Map(document.getElementById('map'), {
 	              zoom: 4,
