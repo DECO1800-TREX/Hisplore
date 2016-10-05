@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+	<!-- Required documents and css styling -->
     <title>Geocoding service</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css" media="screen" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	
     <style>
       html, body {
         height: 100%;
@@ -63,10 +65,14 @@
         right:70px;
       }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGW7c_hlZRJX3QGsDwkrAicn40AoiIZGs&callback=initMap" async defer>
-    </script>
+	
+	<!-- links to the Google api, Jquery and timeline api -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGW7c_hlZRJX3QGsDwkrAicn40AoiIZGs&callback=initMap" async defer></script>
+	
     <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+	
     <script src="js/jquery.timelinr-0.9.6.js"></script>
+	
   <script>
     $(function(){
       $().timelinr({
@@ -74,14 +80,19 @@
       })
     });
   </script>
-
   </head>
-  <body>
   
+  <!-- Body start, Main divs and api scripts here -->
+  <body>
+	
+	<!-- top of page button(return to map) -->
     <div id="mapNav">
       <a href="#">Go back to Map</a>
     </div>
+	
     <img id="loading" src="loading.gif" width="50" height="50">
+	
+	<!-- Navigation bar for html page links -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -113,9 +124,10 @@
 
 
 
-
+		<!-- stub? -->
       <div id='nav'>
       
+	  <!-- timeline div(NOTE must get this to perform the page refresh if possible) -->
       <div id="year" style="display:none;"></div>
     </div>
     <div id="timeline">
@@ -136,28 +148,28 @@
       <li><a id="1989">2016</a></li>
       
     </ul>
+	
+	<!-- Stub? -->
     <ul id='issues'>
     </ul>
-    
   </div>
 
       <!-- <div id="floating-panel">
-        
         <input id="vn" type="button" value="Vietnam">
         <input id="aus" type="button" value="Australia">
         <input id="sing" type="button" value="Singapore">
         <input id="test" type="button" value="test">
       </div> -->
+	  
+	  <!-- not sure what this is -->
       <div id="map" class="col-sm-9"></div>
       <div class="col-sm-3">
         <div class="form-group">
           <input type="text" name="search" id="search" class="form-control">
         </div>
-        
-        
-
       </div>
 
+	  <!-- Search buttons -->
       <div class="col-sm-3 btn-div">
         <button class="btn btn-lg btn-primary" id="btnSearchNewspaper">Search Newspaper</button>
       </div>
@@ -176,18 +188,20 @@
         <input type="checkbox" name="vehicle" value="Bike" id='nt'>Northern Territory<br>
         <input type="checkbox" name="vehicle" value="Bike" id='wa'>Western Australia<br>
         <input type="checkbox" name="vehicle" value="Bike" id='vic'>Victoria<br>
-        
       </div>
       
+	  <!-- this will become redundant if we put peope on to the mp directly -->
       <div class="col-sm-12">
         <h1> Some suggestion </h1>
       </div>
+	  
+	  <!-- Stub? -->
       <div id="test" class="col-sm-6">
-        
       </div>
     
+	<!-- Main Trove search functions are in this script -->
     <script>
-
+		
     	// --------------- Variable ------------------- \\
       var apiKey = "jsk1qqntnrj7qbvf";
     	//var googleurl = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBGW7c_hlZRJX3QGsDwkrAicn40AoiIZGs&address="+item.state;
@@ -309,7 +323,7 @@
 
 	      
 	    	});
-	       //console.log(marker);
+	        //console.log(marker);
 	       	// contentHTML is the content of the pop-up of marker
 	      	var contentHTML = item.troveUrl + "<br>" + item.title;
 	       	var infowindow = new google.maps.InfoWindow({
@@ -476,8 +490,7 @@
 
 	            
 	    }
-
-
+		
     </script>
 
 	<!-- Main Sscript -->
