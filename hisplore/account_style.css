@@ -1,0 +1,86 @@
+  /* nav bar */
+  
+header  {
+	background-color: #0ca4a5;
+	width: 100%;
+	box-shadow: 1px 1px 7px black;
+	padding: auto;
+	margin: auto;
+	position: fixed;
+	top:0;
+	bottom: 91%;
+}
+
+header li {
+	list-style-type: none;
+	display: inline;
+	margin: 0;
+	float: left;
+	margin-left: 10px;
+	text-decoration: none;
+	padding: 10px 10px 0px 10px;
+
+}
+
+header nav ul li a:hover {
+	color: #ffffff;
+	text-decoration: none;
+	border-bottom: 4px solid #69dba7;
+}
+  
+header nav ul li {
+	list-style:none;
+	display: inline;
+	color: #ffffff;
+}
+
+header nav .ul-left {
+	float: left;
+}
+
+header nav .ul-right{
+	float: right;
+	padding-right: 30px;
+}
+  
+header ul li a {
+	color: #ffffff;
+	font-family: 'Special Elite', cursive;
+	font-size: 26px;
+	display: block;
+} 
+
+/* navbar end */
+
+.account_body {
+	margin: 40px;
+	padding: 50px;
+	background-color: #ffffff;
+	box-shadow: 1px 1px 7px black;
+}
+
+h2 {
+  color: #0a2342;
+  font-size: 30px;
+  font-family: 'Special Elite', cursive;
+}
+
+tr {
+	width: 100%;
+	margin: auto;
+}
+
+.bin_button {
+	width: 40px;
+    height: 40px;
+	padding: 10px;
+	margin-right: 20px;
+	border-radius: 200px;
+	background: #0ca4a5;
+	border-color: #0ca4a5;
+	float: right;
+}
+
+tr {
+	border-bottom: 3px solid #0ca4a5;
+}

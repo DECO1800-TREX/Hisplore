@@ -1,0 +1,81 @@
+
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+  }
+body{
+	padding-top:50px;
+  }
+
+
+ 
+/* map divs */
+#map {
+	height: 50%;
+	
+}
+
+
+#floating-panel {
+	position: absolute;
+	left: 25%;
+	z-index: 5;
+	background-color: #ffffff;
+	padding: 5px;
+	border: 1px solid #999;
+	text-align: center;
+	line-height: 30px;
+	padding-left: 10px;
+}
+
+
+.btn-div{
+	  margin-top: 5px;
+	  margin-bottom: 5px;
+}
+.people a{
+	pointer-events: none;
+}
+.people li{
+	cursor: pointer;
+	/*border: 1px solid black;*/
+}
+#mapNav{
+	position:fixed;
+	width:50px;
+	height:50px;
+	bottom: 10px;
+	right:10px;
+}
+#loading{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom: 10px;
+	right:70px;
+}
+  
+#dates li{
+	list-style: none;
+	display: inline;
+	 /* will need to correct this once timeline works.... again */
+	padding: 10px;
+	
+	
+}
+
+.info, .options {
+	display: none;
+}
+
+#timeline {
+	padding-top: 40px;
+	color: #0a2342;
+	font-family: 'Oswald', sans-serif;
+	font-size: 20px;
+}
+
+
+
