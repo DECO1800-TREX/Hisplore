@@ -1,6 +1,13 @@
 jQuery Timelinr
 =============
 
+HISPLORE is an interactive map designed to provide an entertaining platform for students to explore important Australian born figures. 
+This program allows users to choose the states they wish to view, then select the year of birth they'd like to explore. Users can also save their searches to an account, ultimetaly this program is meant 
+to provide a simple, visual learning experience, showing how various articles like newspapers, music etc are linked to important figures in Australian history. 
+
+
+
+
 **Dando vida al tiempo / Giving life to time**
 
 This simple plugin helps you to give more life to the boring timelines. Supports horizontal and vertical layouts, and you can specify parameters for most attributes: speed, transparency, etc...
@@ -81,3 +88,9 @@ HTML markup must be as follows:
 	   <a href="#" id="next">+</a> <!-- optional -->
 	   <a href="#" id="prev">-</a> <!-- optional -->
 	</div>
+
+
+
+
+
+
