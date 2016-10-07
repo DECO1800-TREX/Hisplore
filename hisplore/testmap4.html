@@ -64,6 +64,9 @@
         bottom: 10px;
         right:70px;
       }
+      #test{
+        display:none;
+      }
     </style>
 	
 	<!-- links to the Google api, Jquery and timeline api -->
@@ -128,7 +131,7 @@
       <div id='nav'>
       
 	  <!-- timeline div(NOTE must get this to perform the page refresh if possible) -->
-      <div id="year" style="display:none;"></div>
+      <div id="year" style="display:none;">start</div>
     </div>
 
 
@@ -176,7 +179,7 @@
         <button class="btn btn-lg btn-primary" id="btnSearchNewspaper">Search Newspaper</button>
       </div>
       <div class="col-sm-3 btn-div">
-        <button class="btn btn-lg btn-primary" id="btnSearchPeople">Search People</button>
+        <button class="btn btn-lg btn-primary" id="btnNext">Show next Result</button>
       </div>
       <!-- <div class="col-sm-3 btn-div">
         <button class="btn btn-lg btn-primary" id="btnTest">Test</button>
@@ -201,9 +204,9 @@
 	  
 	  <!-- Stub? -->
       <!-- #test div is the people list suggestion,don't delete -->
-      <div class="col-sm-6">
-        <ul id="test">
-        </ul>
+      <div class="col-sm-6" id="test">
+        <!-- <ul id="test">
+        </ul> -->
       </div>
     
 	<!-- Main Trove search functions are in this script -->
@@ -350,12 +353,61 @@
 	       
 	        markers.push(marker);
 	      
-	       $('#loading').hide();
+	       
         }
       	
 
-        function addPeopleEvent(event){
+        function addPeopleEvent(year,states){
+              states.each(function(index,region){
 
+
+                    //console.log(region);
+                    var people = $(region).children();
+                    //var state = region.getAttribute("state");
+                    //console.log(state);
+                    //console.log(people);
+                    people.each(function(index,person){
+                          if ((index >= searchIndex*5) && (index<(searchIndex+1)*5)){
+                                // console.log($(person).children().attr('href'));
+                                // console.log(person.getAttribute("state"));
+                                var wikiUrl = $(person).children().attr('href');
+                                var state = $(person).parent().attr('state');
+                                var searchTerm = $(person).children().attr('title');
+                                //console.log(searchTerm);
+                                   var troveSearchUrl = "http://api.trove.nla.gov.au/result?key=" + apiKey + "&encoding=json&zone=newspaper" + 
+                               "&q=" + searchTerm +"&n=2"+ "&reclevel=full&callback=?";
+                                
+                               $.getJSON(troveSearchUrl,function(data){
+                                  var obj = {};
+                                  obj.searchTerm = searchTerm;
+                                  obj.state = state;
+                                  
+                                  obj.wikiUrl = "https://en.wikipedia.org" + wikiUrl;
+                                  obj.troveLinks = [];
+                                  var articles = data.response.zone[0].records.article;
+                                  //console.log(articles);
+
+                                  for (var i in articles){
+                                    //console.log(articles[i]);
+                                    var obj_tmp = {}
+                                    obj_tmp.troveUrl = articles[i].troveUrl;
+                                    obj_tmp.heading = articles[i].heading;
+                                    obj_tmp.snippet = articles[i].snippet;
+                                    obj.troveLinks.push(obj_tmp);
+                                    //console.log(articles[i]);
+                                    //console.log(obj);
+                                  }
+                                  console.log(obj);
+
+                                  addPeopleMarkers(obj,map);
+                                  
+                               }) // get Trove content
+                          } // only show 5 results in the search event
+                   
+                    })// each person
+               
+            
+              }) // each region
 
         }
 
@@ -417,7 +469,7 @@
          
           markers.push(marker);
         
-         $('#loading').hide();
+         
         }
 
 
@@ -513,55 +565,48 @@
 
     <script type="text/javascript">
     	// ---------------Main program----------------- \\
-        $('#loading').hide();
+        var searchIndex = 0;
+        $('#btnNext').off('click').click(function(){
+                //alert('ahihi');
+                var year = $('#year').text();
+                if (year=='start'){
+                  alert('please choose a year');
+                }
+                else{
+                  delete_all_markers();
+                  searchIndex += 1;
+                  var year = $('#year');
+                  var states = $('#test ul');
+                  $('#loading').show();
+                  addPeopleEvent(year,states);
+                  $('#loading').hide();
+                }
+                
+        }) // show next result event
+
+        
         dates = $('#dates').find('a');
         dates.each(function(index,data){
           //console.log(data);
           $(data).off('click').click(function(){
-            delete_all_markers();
+            
             //change the value of the "invisible" div '#year' to the selected year
             if (this.id != 'start'){ // if it's a year,add event
+              searchIndex = 0;
               $('#year').text($(data).attr('id'));
               //alert('ahihi');
+              $('#loading').show();
+              delete_all_markers();
               var year = $('#year');
-              var people = $('#test li');
-              people.each(function(index,person){
-                // console.log($(person).children().attr('href'));
-                // console.log(person.getAttribute("state"));
-                var wikiUrl = $(person).children().attr('href');
-                var state = person.getAttribute("state")
-                var searchTerm = $(person).children().attr('title');
-                console.log(searchTerm);
-                   var troveSearchUrl = "http://api.trove.nla.gov.au/result?key=" + apiKey + "&encoding=json&zone=newspaper" + 
-               "&q=" + searchTerm +"&n=2"+ "&reclevel=full&callback=?";
-                
-               $.getJSON(troveSearchUrl,function(data){
-                  var obj = {};
-                  obj.searchTerm = searchTerm;
-                  obj.state = state;
-                  
-                  obj.wikiUrl = "https://en.wikipedia.org" + wikiUrl;
-                  obj.troveLinks = [];
-                  var articles = data.response.zone[0].records.article;
-                  //console.log(articles);
-
-                  for (var i in articles){
-                    //console.log(articles[i]);
-                    var obj_tmp = {}
-                    obj_tmp.troveUrl = articles[i].troveUrl;
-                    obj_tmp.heading = articles[i].heading;
-                    obj_tmp.snippet = articles[i].snippet;
-                    obj.troveLinks.push(obj_tmp);
-                    //console.log(articles[i]);
-                    //console.log(obj);
-                  }
-                  console.log(obj);
-                  addPeopleMarkers(obj,map);
-                  $('#loading').hide();
-               }) // get Trove content
-            
-              }) // each person
-
+              var states = $('#test ul');
+              $('#loading').show();
+              addPeopleEvent(year,states);
+              $('#loading').hide();
+              //console.log(states);
+              //var searchIndex = 0; // index of the result search.
+              
+              
+              
             }
             
           }) //event click for year
