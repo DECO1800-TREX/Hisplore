@@ -1,0 +1,142 @@
+
+
+
+h1 {
+  color: #0a2342;
+  text-align: center;
+  font-size: 100px;
+}
+
+h2 {
+  color: #0a2342;
+  text-align: center;
+  font-size: 30px;
+}
+
+h1, h2, button {
+  font-family: 'Special Elite', cursive;
+}
+
+h3, h4, p, label {
+  color: #0a2342;
+  font-family: 'Oswald', sans-serif;
+}
+
+.copyright {
+  color: #0a2342;
+  font-family: 'Oswald', sans-serif;
+}
+
+
+body {
+	background: url("background.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	background-color: white;
+}
+
+.help_buttons button {
+	width: 130px;
+    height: 130px;
+	padding: 10px 16px;
+	font-size: 24px;
+	border-radius: 135px;
+	margin: 20px;
+	background: #348aa7;
+	border-color: #348aa7;
+	margin-right: 60px;
+}
+
+.help_buttons {
+	float: right;
+	cursor: pointer;
+    width: 20%;
+}
+
+
+.help_buttons a {
+	font-size: 25px;
+	color: #0a2342;
+	width: 100%;
+	text-decoration: none;
+}
+
+form {
+	position: absolute;
+	right: 40%;
+	left: 35%;
+	width: 30%;
+	padding: 10px;
+	background: #0ca4a5;
+	border-radius: 4px 4px;
+	box-shadow: 2px 2px 7px black;
+
+}
+
+form .username, form .password {
+	width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+	box-shadow: 1px 1px 5px grey;
+}
+
+form a {
+	text-decoration: none;
+	color: #0a2342;
+	font-size:17px;	
+	
+}
+
+form button {
+	margin: 10px;
+	padding: 10px;
+	background: #69dba7;
+	border-color: #69dba7;
+		
+}
+
+.copyright {
+	position: absolute;
+	bottom: 0%;
+	
+}
+
+form button:hover, .help_buttons button:hover {
+	box-shadow: 1px 1px 5px black;
+}
+
+.info_content, .options_content {
+	display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+	margin: 50px;
+	top: 0;
+	left: 0;
+    width: 90%; /* Full width */
+    height: 75%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: white; /* Fallback color */
+	box-shadow: 2px 2px 7px black;
+	padding: 10px;
+    
+}
+
+
+
+.info_content #close_info, .options_content #close_options {
+	border-radius: 135px;
+	background-color: #348aa7;
+	border-color: #348aa7;
+	float: right;
+	font-size: 20px;
+}
+
+.info_content #close_info:hover, .info_content #close_options:hover {
+	box-shadow: 2px 2px 4px black;
+	
+}
+
