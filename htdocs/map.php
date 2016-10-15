@@ -1,78 +1,36 @@
+<?php include("includes/layouts/session.php"); ?>
+<?php require_once("includes/db_connection.php") ?>
+<?php require_once("includes/functions.php") ?>
+<?php
+  if (!$_SESSION['username']){
+    redirect_to('index.php');
+  }
+  $username = $_SESSION['username'];
+  
+?>
 <!DOCTYPE html>
 <html>
   <head>
 	<!-- Required documents and css styling -->
-    <title>Geocoding service</title>
+    <title>HISPLORE: Map</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/style.css" media="screen" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/stylesheet_main.css" media="screen"/>
+	<link rel="stylesheet" href="css/map_style.css" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 	
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      body{
-        padding-top:50px;
-      }
-      #map {
-        height: 75%;
-        
-      }
-      #floating-panel {
-        position: absolute;
-        top: 20px;
-        left: 25%;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
-      }
-      #nav{
-        width: 100%;
-        height: 40px;
-      }
-      .btn-div{
-          margin-top: 5px;
-          margin-bottom: 5px;
-      }
-      .people a{
-        pointer-events: none;
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/site.js"></script>
+	
+	<!---Font Styles --->
+	<link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
-      }
-      .people li{
-        cursor: pointer;
-        /*border: 1px solid black;*/
-      }
-      #mapNav{
-        position:fixed;
-        width:50px;
-        height:50px;
-        bottom: 10px;
-        right:10px;
-      }
-      #loading{
-        position:fixed;
-        width:60px;
-        height:60px;
-        bottom: 10px;
-        right:70px;
-      }
-      #test{
-        display:none;
-      }
-    </style>
-	
 	<!-- links to the Google api, Jquery and timeline api -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGW7c_hlZRJX3QGsDwkrAicn40AoiIZGs&callback=initMap" async defer></script>
-	
-    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+  <!-- <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script> -->
+  
+    
+    
 	
     <script src="js/jquery.timelinr-0.9.6.js"></script>
 	
@@ -83,81 +41,61 @@
       })
     });
   </script>
+  
+  
   </head>
   
   <!-- Body start, Main divs and api scripts here -->
   <body>
 	
-	<!-- top of page button(return to map) -->
-    <div id="mapNav">
-      <a href="#">Go back to Map</a>
-    </div>
+	
 	
     <img id="loading" src="loading.gif" width="50" height="50">
 	
-	<!-- Navigation bar for html page links -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#" >A Logo</a>
-            <button class="navbar-toggle" data-toggle="collapse" data-target="#navContent">
-              
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div class="collapse navbar-collapse" id="navContent">
-            <ul class="nav navbar-nav">
-              <li><a href="#">SomeThing</a></li>
-              <li><a href="#">SomeThing</a></li>
-              <li><a href="#">SomeThing</a></li>
-              <li><a href="#">About us</a></li>
-              
-              
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="signin.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Login</a></li>
-              <li><a href="#">Register</a></li>
-            </ul>
-            
-          </div>
-        </div>
-      </div>
+	<!---NAVBAR--->
+	<header>
+		<nav>
+			<ul class="ul-left">
+				<li><a href="account.php"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+				<li><a href="" id="info_button"><span class="glyphicon glyphicon-info-sign"></span> Info</a></li>
+				<li><a href="" id="options_button"><span class="glyphicon glyphicon-cog"></span> Options</a></li>
+			</ul>
+			<ul class="ul-right">
+				<li><a href="logout.php"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+			</ul>
+		</nav>
+	</header>
 
 
 
-		<!-- stub? -->
-      <div id='nav'>
-      
 	  <!-- timeline div(NOTE must get this to perform the page refresh if possible) -->
       <div id="year" style="display:none;">start</div>
-    </div>
 
 
     <div id="timeline">
-    <ul id="dates">
-      <li><a id="start">XXXX</a></li>
-      <li><a id="1900">1900</a></li>
-      <li><a id="1930">1910</a></li>
-      <li><a id="1944">1920</a></li>
-      <li><a id="1950">1930</a></li>
-      <li><a id="1971">1940</a></li>
-      <li><a id="1977">1950</a></li>
-      <li><a id="1989">1960</a></li>
-      <li><a id="1900">1970</a></li>
-      <li><a id="1930">1980</a></li>
-      <li><a id="1944">1990</a></li>
-      <li><a id="1950">2000</a></li>
-      <li><a id="1971">2005</a></li>
-      <li><a id="1977">2010</a></li>
-      <li><a id="1989">2016</a></li>
-    </ul>
+		<ul id="dates">
+		  <li><a id="start">XXXX</a></li>
+		  <li><a id="1900">1900</a></li>
+		  <li><a id="1930">1910</a></li>
+		  <li><a id="1944">1920</a></li>
+		  <li><a id="1950">1930</a></li>
+		  <li><a id="1971">1940</a></li>
+		  <li><a id="1977">1950</a></li>
+		  <li><a id="1989">1960</a></li>
+		  <li><a id="1900">1970</a></li>
+		  <li><a id="1930">1980</a></li>
+		  <li><a id="1944">1990</a></li>
+		  <li><a id="1950">2000</a></li>
+		  <li><a id="1971">2005</a></li>
+		  <li><a id="1977">2010</a></li>
+		  <li><a id="1989">2016</a></li>
+		</ul>
+	</div>
 	
 	<!-- Stub? -->
     <ul id='issues'>
     </ul>
-  </div>
+ 
 
       <!-- <div id="floating-panel">
         <input id="vn" type="button" value="Vietnam">
@@ -169,32 +107,43 @@
 	  <!-- not sure what this is -->
       <div id="map" class="col-sm-9"></div>
       <div class="col-sm-3">
+		<!-- un-needed, we dont search by text
         <div class="form-group">
           <input type="text" name="search" id="search" class="form-control">
         </div>
+		-->
+      </div>
+	  
+	  
+	  
+	  <div class="search_form">
+
+			<!-- Search buttons -->
+			
+			<!-- we no longer need an individual newspaper search button
+			<div class="col-sm-3 btn-div">
+				<button class="btn btn-lg btn-primary" id="btnSearchNewspaper">Search Newspaper</button>
+			</div>
+			-->
+			<div class="col-sm-3 btn-div">
+				<button class="btn btn-lg btn-primary" id="btnNext">Show next Result</button>
+			</div>
+	  
+		  <!-- <div class="col-sm-3 btn-div">
+			<button class="btn btn-lg btn-primary" id="btnTest">Test</button>
+		  </div> -->
+		  <div class="col-sm-3 btn-div" id='checkboxList'>
+			<input type="checkbox" name="vehicle" value="Bike" id='nsw'>New South Wales<br>
+			<input type="checkbox" name="vehicle" value="Bike" id='act'>ACT<br>
+			<input type="checkbox" name="vehicle" value="Bike" id='qld'>Queensland<br>
+			<input type="checkbox" name="vehicle" value="Bike" id='tas'>Tasmania<br>
+			<input type="checkbox" name="vehicle" value="Bike" id='sa'>South australia<br>
+			<input type="checkbox" name="vehicle" value="Bike" id='nt'>Northern Territory<br>
+			<input type="checkbox" name="vehicle" value="Bike" id='wa'>Western Australia<br>
+			<input type="checkbox" name="vehicle" value="Bike" id='vic'>Victoria<br>
+		  </div>
       </div>
 
-	  <!-- Search buttons -->
-      <div class="col-sm-3 btn-div">
-        <button class="btn btn-lg btn-primary" id="btnSearchNewspaper">Search Newspaper</button>
-      </div>
-      <div class="col-sm-3 btn-div">
-        <button class="btn btn-lg btn-primary" id="btnNext">Show next Result</button>
-      </div>
-      <!-- <div class="col-sm-3 btn-div">
-        <button class="btn btn-lg btn-primary" id="btnTest">Test</button>
-      </div> -->
-      <div class="col-sm-3 btn-div" id='checkboxList'>
-        <input type="checkbox" name="vehicle" value="Bike" id='nsw'>New South Wales<br>
-        <input type="checkbox" name="vehicle" value="Bike" id='act'>ACT<br>
-        <input type="checkbox" name="vehicle" value="Bike" id='qld'>Queensland<br>
-        <input type="checkbox" name="vehicle" value="Bike" id='tas'>Tasmania<br>
-        <input type="checkbox" name="vehicle" value="Bike" id='sa'>South australia<br>
-        <input type="checkbox" name="vehicle" value="Bike" id='nt'>Northern Territory<br>
-        <input type="checkbox" name="vehicle" value="Bike" id='wa'>Western Australia<br>
-        <input type="checkbox" name="vehicle" value="Bike" id='vic'>Victoria<br>
-      </div>
-      
 	  <!-- this will become redundant if we put peope on to the mp directly -->
     <!--
       <div class="col-sm-12">
@@ -204,11 +153,110 @@
 	  
 	  <!-- Stub? -->
       <!-- #test div is the people list suggestion,don't delete -->
-      <div class="col-sm-6" id="test">
+      <div class="col-sm-6" id="test" style="display:none">
         <!-- <ul id="test">
         </ul> -->
       </div>
-    
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  		<!-- info div -->
+		<div id="info" class="info_content">
+			<div class="info_header">
+			<button id="close_info">Close</button>		
+			<h2>About HISPLORE</h2>
+			</div>
+				<h3>What is HISPLORE? </h3>
+				<p>HISPLORE is an interactive timemap where our users can look through documents from trove (www.trove.nla.au). We know what you study at school so we designed preset searches based on what you need for your studies including Australian Novels and Australian Politics. </p>
+
+				<h3>How do we use it?</h3>
+				<p> Hisplore is to be used for your studies. Simply click on one of the preset buttons on the right hand side of the map and you will be able to see a countless amount of search items based on that topic. </p>
+
+				<p>Click on a pin either on the timeline or on the map and the document preview should come up. You can decide whether you want to read it or save it for later. Scroll down to the account section and you will be able to know how to delete these saved items!</p>
+
+			<h2>Options </h2>
+				<h3>Colour</h3>
+				<p>Do you have difficulty with colour? We have designed HISPLORE to be friendly to those suffering from colorblindness or any other vision-impairments. Simply click on the options button and select the right colour settings to suit your needs. </p>
+
+				<h3>Reading</h3>
+				<p>Do you have difficulty with reading? We have also design HISPLORE to be friendly with those who suffer from reading impairments. Simply click on the options button and select the settings under text-to-speech settings and font size settings to suit your needs.</p>
+
+
+			<h2>Account </h2>
+				<h3>Login </h3>
+				<p>You can also login to HISPLORE! Simply login if you already have an account or create an account by just choosing a username and password. When you login, you will be directed to the main page as shown in the picture on the side. </p>
+
+
+				<h3>Saving Documents </h3>
+				<p>You can search through trove’s documents by selecting one of the preset searches. When you find something you like, just click on its pin and a save option will be at the bottom. You can save this to your account and see it later whenever you want! </p>
+
+
+				<h3>Deleting Documents </h3>
+				<p>When you look at your account on the account page, you can see a list of all of your saved items. If you wish to delete any - simple click on the trash can on the right side of the document. </p>
+
+
+				<h3>Logging Out </h3>
+				<p>
+				If you wish to log out at any time, simply press the “LOG OUT” button on the top right hand corner and you will be able to log out of your account. <strong>Remember:</strong> you wont be able to use the application if you are logged out.</p>
+
+		</div>
+		
+		
+		
+		
+		<!-- Options Div -->
+		<div id="options" class="options_content">
+			<div class="options_header">
+			<button id="close_options">Close</button>
+			<h2>Options</h2>
+			</div>
+			<div class="content">
+			<p><em>Here you can change the settings of the website to suit you!</em></p>
+			
+			<h3>Self-Reader</h3>
+			<p><em>Do you have difficulty in reading? If you click on the button "Read for me" the text-to-speech application will turn on!</em></p>
+			<button type="button" id="text-to-speech">Read for me!</button>
+			<button type="button" id="text-to-speech">Don't read for me.</button>
+			
+			<h3>Text Size</h3>
+			<p><em>Hard to read? Here you can change the size of the text!</em></p>
+			<p id="smaller">A</p><h4>A</h4><h2 id="bigger">A</h2>
+			
+			<!-- insert function by js to change css font size -->
+			</div>
+		</div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGW7c_hlZRJX3QGsDwkrAicn40AoiIZGs&callback=initMap" ></script>
+	
 	<!-- Main Trove search functions are in this script -->
     <script>
 		
@@ -264,6 +312,8 @@
           
           //return result;
         }
+
+
 
         //people search
         function get_people(searchTerm,year){
@@ -446,6 +496,7 @@
           // contentHTML is the content of the pop-up of marker
           var contentHTML = "<h2>"+item.searchTerm+"</h2><br>"
           contentHTML += "<a target='_blank' href='"+item.wikiUrl +"'>Click For WikiPedia Link</a><hr>"
+          contentHTML += "<button onclick='save_people("+ "\""+ item.searchTerm+ "\"" +")'>Save Search</button>"
           contentHTML += "<p> Some of the Trove Links</p>"
           var troveLinks = item.troveLinks;
           for (var i in troveLinks){
@@ -454,6 +505,8 @@
             contentHTML += "<a target='_blank' href='"+troveLinks[i].troveUrl +"'>Click to go to Trove</a>"
             contentHTML += "<hr>"
           }
+
+          
           //this the window container for each map marker
           //var contentHTML = item.troveUrl + "<br>" + item.title;
           var infowindow = new google.maps.InfoWindow({
@@ -472,7 +525,13 @@
          
         }
 
+        function save_people(term){
+        	alert(term);
+        	$.post("save_people.php",{term:term});
 
+        	alert("<?php echo $_SESSION['username'] ?>");
+
+        }
 
       	
       	function delete_all_markers(){
@@ -548,22 +607,114 @@
             }
         }
 
+
+
+
+
+
+
+
+
         //THIS is the map creation call
+
       	window.initMap = function() {
 	            map = new google.maps.Map(document.getElementById('map'), {
 	              zoom: 4,
 	              center: {lat: -26.8241, lng: 133.7751}
 	            });
+	        
+
+
+        // Define the LatLng coordinates for the polygon's path.
+        var ntcoords = [
+          {lat: -15.057254, lng: 129.159176},
+          {lat: -12.218014, lng: 133.343669},
+          {lat: -16.545583, lng: 137.939128},
+          {lat: -25.703676, lng: 137.759604},
+          {lat: -25.595647, lng: 129.355759}
+        ];
+
+        // Define the LatLng coordinates for the polygon's path.
+        var qldcoords = [
+          {lat: -15.057254, lng: 129.159176},
+          {lat: -12.218014, lng: 133.343669},
+          {lat: -16.545583, lng: 137.939128},
+          {lat: -25.703676, lng: 137.759604},
+          {lat: -25.595647, lng: 129.355759}
+        ];
+
+
+
+
+        // Construct nsw
+        var NTquads = new google.maps.Polygon({
+          paths: ntcoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.25
+        });
+
+        /*
+        var QLDquads = new google.maps.Polygon({
+          paths: nswcoords,
+          strokeColor: '#FFFFFF',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF000F',
+          fillOpacity: 0.25
+        });
+
+*/
+
+
+
+
+
+        NTquads.setMap(map);
+        NTquads.addListener('click', nswcheck);	    
+
+        //QLDquadsquads.setMap(map);
+       // QLDquads.addListener('click', nswcheck);	
+
+	    }
 	            
 
-	            
-	    }
 		
+        function nswcheck(){
+        	
+        	
+
+            if ($('#nt').is(':checked')){
+
+                $('#nt')[0].checked = false;
+        		$('#nt').attr('checked', false);
+        		$('#nt').prop('checked', false);
+                $('#nt').append(data);
+                
+    
+            }
+
+            else {
+	           	$('#nt')[0].checked = true;
+	        	$('#nt').attr('checked', true);
+	        	$('#nt').prop('checked', true);
+
+            }
+            createPeopleList();
+            delete_all_markers();  
+
+            
+        }
+
+
     </script>
 
 	<!-- Main Sscript -->
 
     <script type="text/javascript">
+    
     	// ---------------Main program----------------- \\
         var searchIndex = 0;
         $('#btnNext').off('click').click(function(){
