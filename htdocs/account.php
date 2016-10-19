@@ -14,7 +14,7 @@
 	
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/account_style.css" />
-		
+		<link rel="stylesheet" href="css/stylesheet_main.css" />
 		
 		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="js/site.js"></script>
@@ -54,23 +54,20 @@
 			<tr>
 		</div>
 		<!-- info div -->
+<div id="info_close"><span id="close_info">Close</span></div>
 		<div id="info" class="info_content">
 			<div class="info_header">
-			<button id="close_info">Close</button>		
+				
 			<h2>About HISPLORE</h2>
 			</div>
 				<h3>What is HISPLORE? </h3>
-				<p>HISPLORE is an interactive timemap where our users can look through documents from trove (www.trove.nla.au). We know what you study at school so we designed preset searches based on what you need for your studies including Australian Novels and Australian Politics. </p>
-
+				
 				<h3>How do we use it?</h3>
-				<p> Hisplore is to be used for your studies. Simply click on one of the preset buttons on the right hand side of the map and you will be able to see a countless amount of search items based on that topic. </p>
-
+				
 				<p>Click on a pin either on the timeline or on the map and the document preview should come up. You can decide whether you want to read it or save it for later. Scroll down to the account section and you will be able to know how to delete these saved items!</p>
 
 			<h2>Options </h2>
-				<h3>Colour</h3>
-				<p>Do you have difficulty with colour? We have designed HISPLORE to be friendly to those suffering from colorblindness or any other vision-impairments. Simply click on the options button and select the right colour settings to suit your needs. </p>
-
+			
 				<h3>Reading</h3>
 				<p>Do you have difficulty with reading? We have also design HISPLORE to be friendly with those who suffer from reading impairments. Simply click on the options button and select the settings under text-to-speech settings and font size settings to suit your needs.</p>
 
@@ -98,9 +95,10 @@
 		
 		
 		<!-- Options Div -->
+<div id="options_close"><span id="close_options">Close</span></div>
 		<div id="options" class="options_content">
 			<div class="options_header">
-			<button id="close_options">Close</button>
+			
 			<h2>Options</h2>
 			</div>
 			<div class="content">
