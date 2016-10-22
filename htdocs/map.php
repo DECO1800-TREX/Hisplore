@@ -15,9 +15,10 @@
     <title>HISPLORE: Map</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/stylesheet_main.css" media="screen"/>
 	<link rel="stylesheet" href="css/map_style.css" media="screen"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    
 	
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/site.js"></script>
@@ -47,7 +48,7 @@
   
   <!-- Body start, Main divs and api scripts here -->
   <body>
-	
+	<div id="modal_background"></div>
 	
 	
     <img id="loading" src="loading.gif" width="50" height="50">
@@ -67,9 +68,9 @@
 	</header>
 
 
-
+	<div class="timeline1">
 	  <!-- timeline div(NOTE must get this to perform the page refresh if possible) -->
-      <div id="year" style="display:none;">start</div>
+      <center><div id="year" style="display:none;">start</div>
 
 
     <div id="timeline">
@@ -90,7 +91,7 @@
 		  <li><a id="1977">2010</a></li>
 		  <li><a id="1989">2016</a></li>
 		</ul>
-	</div>
+	</div></div></center>
 	
 	<!-- Stub? -->
     <ul id='issues'>
@@ -171,20 +172,25 @@
 	  
 	  
 	  
-	  		<!-- info div -->
-	  <div id="options_close"><span id="close_options">Close</span></div>
+	  	<!--- info divs--->
+		
 		<div id="info" class="info_content">
 			<div class="info_header">
-					
+				
 			<h2>About HISPLORE</h2>
 			</div>
 				<h3>What is HISPLORE? </h3>
-				<!-- JONAS PLEASE INPUT WHAT WE WANT HISPLORE TO BE ABOUT -->
+				<p>HISPLORE is an interactive timemap where our users can look through documents from trove (www.trove.nla.au). We know what you study a lot of Australian history at school so we designed an application that will allow you to search through the trove database for historical people in Australia. When the markers on the map has loaded, you will be able to view the birth date and place, occupation and articles on Australian historical people. Jump into Australian history with HISPLORE and learn something new about your country! </p>
+
 				<h3>How do we use it?</h3>
-				
+				<p> Hisplore is to be used for your studies. ... </p>
+
 				<p>Click on a pin either on the timeline or on the map and the document preview should come up. You can decide whether you want to read it or save it for later. Scroll down to the account section and you will be able to know how to delete these saved items!</p>
 
 			<h2>Options </h2>
+				<h3>Colour</h3>
+				<p>Do you have difficulty with colour? We have designed HISPLORE to be friendly to those suffering from colorblindness or any other vision-impairments. Simply click on the options button and select the right colour settings to suit your needs. </p>
+
 				<h3>Reading</h3>
 				<p>Do you have difficulty with reading? We have also design HISPLORE to be friendly with those who suffer from reading impairments. Simply click on the options button and select the settings under text-to-speech settings and font size settings to suit your needs.</p>
 
@@ -212,23 +218,28 @@
 		
 		
 		<!-- Options Div -->
-	  <div id="info_close"><span id="close_info">Close</span></div>
+		
 		<div id="options" class="options_content">
 			<div class="options_header">
-			
 			<h2>Options</h2>
 			</div>
 			<div class="content">
-			<p><em>Here you can change the settings of the website to suit you!</em></p>
+			<p>Here you can change the settings of the website to suit you!</p>
 			
 			<h3>Self-Reader</h3>
-			<p><em>Do you have difficulty in reading? If you click on the button "Read for me" the text-to-speech application will turn on!</em></p>
+			<p>Do you have difficulty in reading? If you click on the button "Read for me" the text-to-speech application will turn on!</p>
 			<button type="button" id="text-to-speech">Read for me!</button>
 			<button type="button" id="text-to-speech">Don't read for me.</button>
 			
 			<h3>Text Size</h3>
-			<p><em>Hard to read? Here you can change the size of the text!</em></p>
-			<p id="smaller">A</p><h4>A</h4><h2 id="bigger">A</h2>
+			<p>Hard to read? Here you can change the size of the text!</p>
+			<table id="fsize_table">
+				<tr>
+				<td><span id="small"><p>A</p></span></td>
+				<td><span id="medium"><h4>A</h4></span></td>
+				<td><span id="large"><h2>A</h2></span></td>
+				</tr>
+			</table>
 			
 			<!-- insert function by js to change css font size -->
 			</div>
@@ -524,9 +535,11 @@
 
         function save_people(term){
         	alert(term);
-        	$.post("save_people.php",{term:term});
+        	// $.post("save_people.php",{term:term},function(data){
+        	// 	alert(data);
+        	// });
 
-        	alert("<?php echo $_SESSION['username'] ?>");
+        	// alert("<?php echo $_SESSION['username'] ?>");
 
         }
 
@@ -633,13 +646,58 @@
 
         // Define the LatLng coordinates for the polygon's path.
         var qldcoords = [
-          {lat: -15.057254, lng: 129.159176},
-          {lat: -12.218014, lng: 133.343669},
-          {lat: -16.545583, lng: 137.939128},
-          {lat: -25.703676, lng: 137.759604},
-          {lat: -25.595647, lng: 129.355759}
+          {lat: -10.954549, lng: 142.457234},
+          {lat: -28.122488, lng: 153.267750},
+          {lat: -28.772415, lng: 141.205406},
+          {lat: -25.847837, lng: 141.150249},
+          {lat: -16.917604, lng: 138.177868}
+        ];
+		
+		// Define the LatLng coordinates for the polygon's path.
+        var nswcoords = [
+          {lat: -29.291888, lng: 141.194757},
+          {lat: -29.616526, lng: 152.753672},
+          {lat: -33.879516, lng: 150.302466},
+          {lat: -35.2037146, lng: 145.309437},
+          {lat: -35.203714, lng: 145.309437}
+        ];
+		
+		// Define the LatLng coordinates for the polygon's path.
+        var actcoords = [
+          {lat: -35.455773, lng: 145.616421},
+          {lat: -34.940069, lng: 150.425803},
+          {lat: -37.249107, lng: 149.897515}
+        ];        
+		// Define the LatLng coordinates for the polygon's path.
+        var viccoords = [
+          {lat: -34.373634, lng: 141.247595},
+          {lat: -36.292693, lng: 144.597771},
+          {lat: -37.531387, lng: 149.570544},
+          {lat: -38.126833, lng: 141.413849}
+        ];
+		
+		// Define the LatLng coordinates for the polygon's path.
+        var sacoords = [
+          {lat: -26.286459, lng: 129.327044},
+          {lat: -26.356284, lng: 140.608844},
+          {lat: -37.674298, lng: 140.530603},
+          {lat: -32.953328, lng: 135.388165},
+          {lat: -31.166650, lng: 129.447673}
         ];
 
+		// Define the LatLng coordinates for the polygon's path.
+        var wacoords = [
+          {lat: -22.301520, lng: 114.946052},
+          {lat: -15.657529, lng: 127.317237},
+          {lat: -31.681433, lng: 128.239287},
+          {lat: -34.349486, lng: 116.705606},
+          {lat: -26.716461, lng: 114.320071}
+        ];
+        var tascoords = [
+          {lat: -41.067298, lng: 144.938145},
+          {lat: -41.112119, lng: 148.045270},
+          {lat: -43.488762, lng: 146.488228}
+        ];
 
 
 
@@ -653,57 +711,210 @@
           fillOpacity: 0.25
         });
 
-        /*
+        // Construct nsw
         var QLDquads = new google.maps.Polygon({
-          paths: nswcoords,
-          strokeColor: '#FFFFFF',
+          paths: qldcoords,
+          strokeColor: '#FF0000',
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: '#FF000F',
+          fillColor: '#FF0000',
           fillOpacity: 0.25
         });
 
-*/
+        // Construct nsw
+        var NSWquads = new google.maps.Polygon({
+          paths: nswcoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.25
+        });
 
+        var ACTquads = new google.maps.Polygon({
+          paths: actcoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.25
+        });
 
-
-
-
+        var VICquads = new google.maps.Polygon({
+          paths: viccoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.25
+        });		
+		
+        var SAquads = new google.maps.Polygon({
+          paths: sacoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.25
+        });		
+		
+        var WAquads = new google.maps.Polygon({
+          paths: wacoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.25
+        });			
+        var TASquads = new google.maps.Polygon({
+          paths: tascoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.25
+        });			
+		
+		
+		
+		
+		
         NTquads.setMap(map);
-        NTquads.addListener('click', nswcheck);	    
-
-        //QLDquadsquads.setMap(map);
-       // QLDquads.addListener('click', nswcheck);	
-
+        NTquads.addListener('click', ntcheck);	  
+		
+        QLDquads.setMap(map);
+        QLDquads.addListener('click', qldcheck);
+		
+        NSWquads.setMap(map);
+        NSWquads.addListener('click', nswcheck);
+		
+        ACTquads.setMap(map);
+        ACTquads.addListener('click', actcheck);
+		
+        VICquads.setMap(map);
+        VICquads.addListener('click', viccheck);
+		
+        SAquads.setMap(map);
+        SAquads.addListener('click', sacheck);	
+		
+        WAquads.setMap(map);
+        WAquads.addListener('click', wacheck);
+		
+        TASquads.setMap(map);
+        TASquads.addListener('click', tascheck);
+		
 	    }
 	            
 
 		
-        function nswcheck(){
-        	
-        	
-
+        function ntcheck(){
             if ($('#nt').is(':checked')){
-
                 $('#nt')[0].checked = false;
-        		$('#nt').attr('checked', false);
-        		$('#nt').prop('checked', false);
-                $('#nt').append(data);
-                
-    
-            }
 
+            }
             else {
 	           	$('#nt')[0].checked = true;
-	        	$('#nt').attr('checked', true);
-	        	$('#nt').prop('checked', true);
-
             }
             createPeopleList();
             delete_all_markers();  
-
-            
         }
+        function qldcheck(){
+            if ($('#qld').is(':checked')){
+                $('#qld')[0].checked = false;
+
+            }
+            else {
+	           	$('#qld')[0].checked = true;
+            }
+            createPeopleList();
+            delete_all_markers();  
+        }
+        function nswcheck(){
+            if ($('#nsw').is(':checked')){
+                $('#nsw')[0].checked = false;
+
+            }
+            else {
+	           	$('#nsw')[0].checked = true;
+            }
+            createPeopleList();
+            delete_all_markers();  
+        }
+        function actcheck(){
+            if ($('#act').is(':checked')){
+                $('#act')[0].checked = false;
+
+            }
+            else {
+	           	$('#act')[0].checked = true;
+            }
+            createPeopleList();
+            delete_all_markers();  
+        }
+        function viccheck(){
+            if ($('#vic').is(':checked')){
+                $('#vic')[0].checked = false;
+
+            }
+            else {
+	           	$('#vic')[0].checked = true;
+            }
+            createPeopleList();
+            delete_all_markers();  
+        }
+        function sacheck(){
+            if ($('#sa').is(':checked')){
+                $('#sa')[0].checked = false;
+
+            }
+            else {
+	           	$('#sa')[0].checked = true;
+            }
+            createPeopleList();
+            delete_all_markers();  
+        }
+        function wacheck(){
+            if ($('#wa').is(':checked')){
+                $('#wa')[0].checked = false;
+
+            }
+            else {
+	           	$('#wa')[0].checked = true;
+            }
+            createPeopleList();
+            delete_all_markers();  
+        }
+        function tascheck(){
+            if ($('#tas').is(':checked')){
+                $('#tas')[0].checked = false;
+
+            }
+            else {
+	           	$('#tas')[0].checked = true;
+            }
+            createPeopleList();
+            delete_all_markers();  
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     </script>

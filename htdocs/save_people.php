@@ -5,9 +5,15 @@
   if (!$_SESSION['username']){
     redirect_to('index.php');
   }
-  $username = $_SESSION['username'];
-  $term = $_SESSION['term'];
 
+  $username = $_SESSION['username'];
+  $term = $_POST['term'];
+  if (!$term){
+  	echo 'ahuhu';
+  }
+  else{
+  	echo $term;
+  }
   	global $conn;
 	$query  = "insert into search(username,term) ";
 	$query .= "values ('{$username}','{$term}')";
