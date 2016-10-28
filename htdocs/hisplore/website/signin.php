@@ -142,8 +142,8 @@
 			
 			<h3>Self-Reader</h3>
 			<p><em>Do you have difficulty in reading? If you click on the button "Read for me" the text-to-speech application will turn on!</em></p>
-			<button type="button" onclick="talk()" onclick="load" class="button">Speak</button>
-            <button type="button" onclick="stop()" class="button">Stop</button>
+			<button type="button" id="text-to-speech">Read for me!</button>
+			<button type="button" id="text-to-speech">Don't read for me.</button>
 			
 			<h3>Text Size</h3>
 			<p><em>Hard to read? Here you can change the size of the text!</em></p>
@@ -164,11 +164,7 @@
 		</footer>
 		<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
 		<script type="text/javascript">
-    //note no document.ready since we're loading this at the bottom of the page
-
     //make an array of 3 sizes per set of elements
-    // this might work better than just making the font bigger or smaller
-    // lets you do some research on what font sizes don't break everything
     var smallSizes = [0.8, 1.3, 1.8];
     var mediumSizes = [1.5, 2, 2.5];
     var largeSizes = [2, 3, 4];
@@ -180,28 +176,10 @@
         // so if they click on button with id 0, this.id resolves to 0.
         // so we can pick indexes of our size arrays out
         // remember arrays are 0 index.
-        // arr = [1, 2, 3, 4];  arr[0] would be 1.
         $(".small-size").css('font-size', smallSizes[this.id] + 'em');
         $(".medium-size").css('font-size', mediumSizes[this.id] + 'em');
         $(".large-size").css('font-size', largeSizes[this.id] + 'em');
     });
-	</script>
-	<script>
-	
-	//loading text message
-	var synth = window.speechSynthesis;
-	var msg = new SpeechSynthesisUtterance('What is HISPLORE? HISPLORE is an interactive timemap where our users can look through documents. from trove www.trove.nla.au. We know what you study at school so we designed preset searches based on what you need for your studies including Australian Novels and Australian Politics.  How do we use it? Hisplore is to be used for your studies. Simply click on one of the preset buttons on the right hand side of the map and you will be able to see a countless amount of search items based on that topic.  Click on a pin either on the timeline or on the map and the document preview should come up. You can decide whether you want to read it or save it for later. Scroll down to the account section and you will be able to know how to delete these saved items! Options  Colour Do you have difficulty with colour? We have designed HISPLORE to be friendly to those suffering from colorblindness or any other vision-impairments. Simply click on the options button and select the right colour settings to suit your needs.  Reading Do you have difficulty with reading? We have also design HISPLORE to be friendly with those who suffer from reading impairments. Simply click on the options button and select the settings under text-to-speech settings and font size settings to suit your needs. Account  Login  You can also login to HISPLORE! Simply login if you already have an account or create an account by just choosing a username and password. When you login, you will be directed to the main page as shown in the picture on the side.  Saving Documents  You can search through trove’s documents by selecting one of the preset searches. When you find something you like, just click on its pin and a save option will be at the bottom. You can save this to your account and see it later whenever you want!  Deleting Documents  When you look at your account on the account page, you can see a list of all of your saved items. If you wish to delete any - simple click on the trash can on the right side of the document.  Logging Out  If you wish to log out at any time, simply press the “LOG OUT” button on the top right hand corner and you will be able to log out of your account. Remember you wont be able to use the application if you are logged out. ');
-	
-	//speak out the voice
-	function talk(){
-	synth.speak(msg);    
-	}
-	//stop the voice
-	function stop(){
-	synth.pause(msg);
-	}
-	
-
     </script>
 	</body>
 </html>
