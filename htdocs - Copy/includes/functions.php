@@ -13,28 +13,6 @@ function escape($text){
 	global $conn;
 	return mysqli_real_escape_string($conn,$text);
 }
-function get_saved_search_by_user($username){
-	global $conn;
-	$query  = "SELECT * ";
-	$query .= "FROM search ";
-	$query .= "where username = '{$username}'";
-	
-	$results = mysqli_query($conn, $query);
-	// while ($res = mysqli_fetch_assoc($results)){
-	// 	var_dump($res);
-	// }
-	if (!$results){
-		return false;
-	}	
-	return $results;
-}
-function display_search($search){
-	$term = $search['term'];
-	echo "<li>";
-	echo "<a target='_blank' href='{$term}'>{$term}</a>";
-
-	echo "</li>";
-}
 function get_restaurants(){
 	global $conn;
 	$query  = "SELECT * ";

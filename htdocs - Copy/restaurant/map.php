@@ -5,8 +5,6 @@
   if (!$_SESSION['username']){
     redirect_to('index.php');
   }
-  $username = $_SESSION['username'];
-  
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,24 +13,9 @@
     <title>HISPLORE: Map</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/stylesheet_main.css" media="screen"/>
 	<link rel="stylesheet" href="css/map_style.css" media="screen"/>
-    <style>
-    	#btnNext{
-			position: absolute;
-			bottom: 5%;
-			left:20%;
-			z-index: 5;
-    	}
-    	#loading{
-    		position: absolute;
-    		bottom: 15%;
-    		left: 20%;
-    		z-index: 0;
-    	}
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 	
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/site.js"></script>
@@ -44,7 +27,8 @@
 	<!-- links to the Google api, Jquery and timeline api -->
   <!-- <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script> -->
   
-    
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGW7c_hlZRJX3QGsDwkrAicn40AoiIZGs&callback=initMap" ></script>
+	
     
 	
     <script src="js/jquery.timelinr-0.9.6.js"></script>
@@ -62,10 +46,10 @@
   
   <!-- Body start, Main divs and api scripts here -->
   <body>
-	<div id="modal_background"></div>
 	
 	
-    <!-- <img id="loading" src="loading.gif" width="50" height="50"> -->
+	
+    <img id="loading" src="loading.gif" width="50" height="50">
 	
 	<!---NAVBAR--->
 	<header>
@@ -82,9 +66,9 @@
 	</header>
 
 
-	<div class="timeline1">
+
 	  <!-- timeline div(NOTE must get this to perform the page refresh if possible) -->
-      <center><div id="year" style="display:none;">start</div>
+      <div id="year" style="display:none;">start</div>
 
 
     <div id="timeline">
@@ -105,7 +89,7 @@
 		  <li><a id="1977">2010</a></li>
 		  <li><a id="1989">2016</a></li>
 		</ul>
-	</div></div></center>
+	</div>
 	
 	<!-- Stub? -->
     <ul id='issues'>
@@ -120,12 +104,7 @@
       </div> -->
 	  
 	  <!-- not sure what this is -->
-	  <div id="map" class="col-sm-9" style="position: relative;"></div>
-	  
-      	
-      <button class="btn btn-lg btn-primary" id="btnNext">Show next Result</button>
-      <!-- <img id="loading" src="loading.gif" width="50" height="50"> -->
-      
+      <div id="map" class="col-sm-9"></div>
       <div class="col-sm-3">
 		<!-- un-needed, we dont search by text
         <div class="form-group">
@@ -145,7 +124,6 @@
 				<button class="btn btn-lg btn-primary" id="btnSearchNewspaper">Search Newspaper</button>
 			</div>
 			-->
-			
 			<div class="col-sm-3 btn-div">
 				<button class="btn btn-lg btn-primary" id="btnNext">Show next Result</button>
 			</div>
@@ -191,20 +169,24 @@
 	  
 	  
 	  
-	   	<!--- info divs--->
-		
+	  
+	  		<!-- info div -->
 		<div id="info" class="info_content">
 			<div class="info_header">
-				
+			<button id="close_info">Close</button>		
 			<h2>About HISPLORE</h2>
 			</div>
 				<h3>What is HISPLORE? </h3>
-				<p>HISPLORE is an interactive timemap where our users can look through documents from trove (www.trove.nla.au). We know what you study a lot of Australian history at school so we designed an application that will allow you to search through the trove database for historical people in Australia. When the markers on the map are loaded, you will be able to view the birth date and place, occupation and articles on Australian historical people. Jump into Australian history with HISPLORE and learn something new about your country! </p>
+				<p>HISPLORE is an interactive timemap where our users can look through documents from trove (www.trove.nla.au). We know what you study at school so we designed preset searches based on what you need for your studies including Australian Novels and Australian Politics. </p>
 
 				<h3>How do we use it?</h3>
-				<p> By clicking on any region on the map whether it be Queensland, New South Wales or the Northern Territory, and then choosing a specific date on the timeline, you will be able to view the countless of documents on the map. Now you can click on a pin on the map and the document preview should come up. You can decide whether you want to read the documents of this person from Trove or save it for later.</p> <p>If you want to see or delete your saved searches simply click on the account tab and scroll down to view. On the right hand side of the saved documents there should be a delete button where you can easily remove the saved items you no longer want.</p>
+				<p> Hisplore is to be used for your studies. Simply click on one of the preset buttons on the right hand side of the map and you will be able to see a countless amount of search items based on that topic. </p>
+
+				<p>Click on a pin either on the timeline or on the map and the document preview should come up. You can decide whether you want to read it or save it for later. Scroll down to the account section and you will be able to know how to delete these saved items!</p>
 
 			<h2>Options </h2>
+				<h3>Colour</h3>
+				<p>Do you have difficulty with colour? We have designed HISPLORE to be friendly to those suffering from colorblindness or any other vision-impairments. Simply click on the options button and select the right colour settings to suit your needs. </p>
 
 				<h3>Reading</h3>
 				<p>Do you have difficulty with reading? We have also design HISPLORE to be friendly with those who suffer from reading impairments. Simply click on the options button and select the settings under text-to-speech settings and font size settings to suit your needs.</p>
@@ -226,17 +208,6 @@
 				<h3>Logging Out </h3>
 				<p>
 				If you wish to log out at any time, simply press the “LOG OUT” button on the top right hand corner and you will be able to log out of your account. <strong>Remember:</strong> you wont be able to use the application if you are logged out.</p>
-				
-			<h2>About Us</h2>
-				<p>We are T-REX INC.,  a 5 person group who formed on the first day of contact sessions. We shared our vision together to create a timeline and geo-location scheme to visualise the data from Trove. </p>
-				<p>We all had our fair share of work, where Thuan, Park and Jonas handled most of the coding for the mapping of data. Gabrielle did most of the html and css designing of the pages and Breanna has helped a lot with the assistance in all areas including large amounts of research. </p>
-					
-				<p>If you wish to submit some feedback or any enquiries, please email Gabrielle Burey on <strong>gabrielle.burey@uq.net.au</strong>.</p>
-					
-				
-				<p>Members: Jonas Wong, Park Sang Ik, Thaun Duc Chu, Gabrielle Burey and Breanna Larkin</p>
-				
-				<p>Copyright &copy; 2016 TREX-INC.</p>
 
 		</div>
 		
@@ -244,28 +215,26 @@
 		
 		
 		<!-- Options Div -->
-		
 		<div id="options" class="options_content">
 			<div class="options_header">
+			<button id="close_options">Close</button>
 			<h2>Options</h2>
 			</div>
 			<div class="content">
-			<p>Here you can change the settings of the website's text size to suit you!</p>
+			<p><em>Here you can change the settings of the website to suit you!</em></p>
+			
+			<h3>Self-Reader</h3>
+			<p><em>Do you have difficulty in reading? If you click on the button "Read for me" the text-to-speech application will turn on!</em></p>
+			<button type="button" id="text-to-speech">Read for me!</button>
+			<button type="button" id="text-to-speech">Don't read for me.</button>
 			
 			<h3>Text Size</h3>
-			<p>Hard to read? Here you can change the size of the text!</p>
-			<table id="tsize_table">
-				<tr>
-				<td><span id="small"><p>A</p></span></td>
-				<td><span id="medium"><h4>A</h4></span></td>
-				<td><span id="large"><h2>A</h2></span></td>
-				</tr>
-			</table>
+			<p><em>Hard to read? Here you can change the size of the text!</em></p>
+			<p id="smaller">A</p><h4>A</h4><h2 id="bigger">A</h2>
 			
 			<!-- insert function by js to change css font size -->
 			</div>
 		</div>
-		
 	  
 	  
 	  
@@ -285,8 +254,7 @@
 	  
 	  
 	  
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGW7c_hlZRJX3QGsDwkrAicn40AoiIZGs&callback=initMap" ></script>
-	
+    
 	<!-- Main Trove search functions are in this script -->
     <script>
 		
@@ -414,7 +382,6 @@
 	       	var marker = new google.maps.Marker({
 	          	position: myLatlng,
 	          	map: map,
-				//icon: person.png,
 
 	      
 	    	});
@@ -501,10 +468,7 @@
           //console.log(geotmp[0]);
           
           // the more of ran_const, the wider the spread in each marker
-          var ran_const = 4.0;
-          if (item.state == 'victoria' || item.state == 'act' || item.state == 'tasmania'){
-          	ran_const = 1.3;
-          }
+          var ran_const = 2.0;
           var tmp = Math.random();
           if (tmp>0.5){
             tmp2 = Math.random()*ran_const;
@@ -521,21 +485,15 @@
           var myLatlng = new google.maps.LatLng(geotmp[0],geotmp[1]);
           //var img = 'images/news.png';
             
-          //var person= new google.maps.MarkerImage("images/person.png", new google.maps.Size(21, 34),
-		  //new google.maps.Point(0, 0),
-		  //new google.maps.Point(10, 34));
-		  
-		  var marker = new google.maps.Marker({
+          var marker = new google.maps.Marker({
               position: myLatlng,
               map: map,
-			  //icon: person,
+
         });
          //console.log(marker);
           // contentHTML is the content of the pop-up of marker
-          var contentHTML = "<h2>"+item.searchTerm+"</h2>"
-          contentHTML += "<button onclick='save_people("+ "\""+ item.wikiUrl+ "\"" +")'>Save Search</button>"
-          contentHTML += "<br><hr><a target='_blank' href='"+item.wikiUrl +"'>Click For WikiPedia Link</a><br>"
-          
+          var contentHTML = "<h2>"+item.searchTerm+"</h2><br>"
+          contentHTML += "<a target='_blank' href='"+item.wikiUrl +"'>Click For WikiPedia Link</a><hr>"
           contentHTML += "<p> Some of the Trove Links</p>"
           var troveLinks = item.troveLinks;
           for (var i in troveLinks){
@@ -544,8 +502,6 @@
             contentHTML += "<a target='_blank' href='"+troveLinks[i].troveUrl +"'>Click to go to Trove</a>"
             contentHTML += "<hr>"
           }
-
-          
           //this the window container for each map marker
           //var contentHTML = item.troveUrl + "<br>" + item.title;
           var infowindow = new google.maps.InfoWindow({
@@ -564,22 +520,10 @@
          
         }
 
-        function save_people(term){
-        	//alert(term);
-        	// $.post("save_people.php",{term:term},function(data){
-        	// 	alert(data);
-        	// });
 
-        	// alert("<?php echo $_SESSION['username'] ?>");
-        	$.post("save_people.php",{term:term},function(data){
-        		alert(data); 
-        	});
-
-        }
 
       	
       	function delete_all_markers(){
-
           for (var i in markers){
             markers[i].setMap(null);
           }
@@ -661,19 +605,16 @@
 
 
         //THIS is the map creation call
-
       	window.initMap = function() {
 	            map = new google.maps.Map(document.getElementById('map'), {
 	              zoom: 4,
-	              center: {lat: -26.8241, lng: 133.7751},
-				  scrollwheel: false,
-				  disableDoubleClickZoom: true,
+	              center: {lat: -26.8241, lng: 133.7751}
 	            });
 	        
 
 
         // Define the LatLng coordinates for the polygon's path.
-        var ntcoords = [
+        var nswcoords = [
           {lat: -15.057254, lng: 129.159176},
           {lat: -12.218014, lng: 133.343669},
           {lat: -16.545583, lng: 137.939128},
@@ -683,83 +624,18 @@
 
         // Define the LatLng coordinates for the polygon's path.
         var qldcoords = [
-          {lat: -10.954549, lng: 142.457234},
-          {lat: -28.122488, lng: 153.267750},
-          {lat: -28.772415, lng: 141.205406},
-          {lat: -25.847837, lng: 141.150249},
-          {lat: -16.917604, lng: 138.177868}
-        ];
-		
-		// Define the LatLng coordinates for the polygon's path.
-        var nswcoords = [
-          {lat: -29.291888, lng: 141.194757},
-          {lat: -29.616526, lng: 152.753672},
-          {lat: -33.879516, lng: 150.302466},
-          {lat: -35.2037146, lng: 145.309437},
-          {lat: -35.203714, lng: 145.309437}
-        ];
-		
-		// Define the LatLng coordinates for the polygon's path.
-        var actcoords = [
-          {lat: -35.455773, lng: 145.616421},
-          {lat: -34.940069, lng: 150.425803},
-          {lat: -37.249107, lng: 149.897515}
-        ];        
-		// Define the LatLng coordinates for the polygon's path.
-        var viccoords = [
-          {lat: -34.373634, lng: 141.247595},
-          {lat: -36.292693, lng: 144.597771},
-          {lat: -37.531387, lng: 149.570544},
-          {lat: -38.126833, lng: 141.413849}
-        ];
-		
-		// Define the LatLng coordinates for the polygon's path.
-        var sacoords = [
-          {lat: -26.286459, lng: 129.327044},
-          {lat: -26.356284, lng: 140.608844},
-          {lat: -37.674298, lng: 140.530603},
-          {lat: -32.953328, lng: 135.388165},
-          {lat: -31.166650, lng: 129.447673}
+          {lat: -15.057254, lng: 129.159176},
+          {lat: -12.218014, lng: 133.343669},
+          {lat: -16.545583, lng: 137.939128},
+          {lat: -25.703676, lng: 137.759604},
+          {lat: -25.595647, lng: 129.355759}
         ];
 
-		// Define the LatLng coordinates for the polygon's path.
-        var wacoords = [
-          {lat: -22.301520, lng: 114.946052},
-          {lat: -15.657529, lng: 127.317237},
-          {lat: -31.681433, lng: 128.239287},
-          {lat: -34.349486, lng: 116.705606},
-          {lat: -26.716461, lng: 114.320071}
-        ];
-        var tascoords = [
-          {lat: -41.067298, lng: 144.938145},
-          {lat: -41.112119, lng: 148.045270},
-          {lat: -43.488762, lng: 146.488228}
-        ];
 
 
 
         // Construct nsw
         var NTquads = new google.maps.Polygon({
-          paths: ntcoords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.25
-        });
-
-        // Construct nsw
-        var QLDquads = new google.maps.Polygon({
-          paths: qldcoords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.25
-        });
-
-        // Construct nsw
-        var NSWquads = new google.maps.Polygon({
           paths: nswcoords,
           strokeColor: '#FF0000',
           strokeOpacity: 0.8,
@@ -768,258 +644,56 @@
           fillOpacity: 0.25
         });
 
-        var ACTquads = new google.maps.Polygon({
-          paths: actcoords,
-          strokeColor: '#FF0000',
+        // Construct queensland
+        var QLDquads = new google.maps.Polygon({
+          paths: nswcoords,
+          strokeColor: '#FFFFFF',
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: '#FF0000',
+          fillColor: '#FF000F',
           fillOpacity: 0.25
         });
 
-        var VICquads = new google.maps.Polygon({
-          paths: viccoords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.25
-        });		
-		
-        var SAquads = new google.maps.Polygon({
-          paths: sacoords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.25
-        });		
-		
-        var WAquads = new google.maps.Polygon({
-          paths: wacoords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.25
-        });			
-        var TASquads = new google.maps.Polygon({
-          paths: tascoords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.25
-        });			
-		
-		
-		
-		
-		
-        NTquads.setMap(map);
-        NTquads.addListener('click', ntcheck);  
-		
-        QLDquads.setMap(map);
-        QLDquads.addListener('click', qldcheck);
-		
+
+
+
+
+
+
         NSWquads.setMap(map);
-        NSWquads.addListener('click', nswcheck);
-		
-        ACTquads.setMap(map);
-        ACTquads.addListener('click', actcheck);
-		
-        VICquads.setMap(map);
-        VICquads.addListener('click', viccheck);
-		
-        SAquads.setMap(map);
-        SAquads.addListener('click', sacheck);	
-		
-        WAquads.setMap(map);
-        WAquads.addListener('click', wacheck);
-		
-        TASquads.setMap(map);
-        TASquads.addListener('click', tascheck);
-		
-		
-		function ntcheck(){
-            if ($('#nt').is(':checked')){
-				NTquads.setOptions({strokeWeight: 2.0, fillColor: '#FF0000', strokeColor: '#FF0000'});
-                $('#nt')[0].checked = false;
+        NSWquads.addListener('click', nswcheck);	    
 
-            }
-            else {
-				NTquads.setOptions({strokeWeight: 2.0, fillColor: 'green', strokeColor: 'green'});
-	           	$('#nt')[0].checked = true;
-            }
-            createPeopleList();
-            delete_all_markers();  
-        }
-        function qldcheck(){
-            if ($('#qld').is(':checked')){
-				QLDquads.setOptions({strokeWeight: 2.0, fillColor: '#FF0000', strokeColor: '#FF0000'});
-                $('#qld')[0].checked = false;
+        QLDquadsquads.setMap(map);
+        QLDquads.addListener('click', nswcheck);	
 
-            }
-            else {
-				QLDquads.setOptions({strokeWeight: 2.0, fillColor: 'green', strokeColor: 'green'});
-	           	$('#qld')[0].checked = true;
-            }
-            createPeopleList();
-            delete_all_markers();  
-        }
-        function nswcheck(){
-            if ($('#nsw').is(':checked')){
-				NSWquads.setOptions({strokeWeight: 2.0, fillColor: '#FF0000', strokeColor: '#FF0000'});
-                $('#nsw')[0].checked = false;
-
-            }
-            else {
-				NSWquads.setOptions({strokeWeight: 2.0, fillColor: 'green', strokeColor: 'green'});
-	           	$('#nsw')[0].checked = true;
-            }
-            createPeopleList();
-            delete_all_markers();  
-        }
-        function actcheck(){
-            if ($('#act').is(':checked')){
-				ACTquads.setOptions({strokeWeight: 2.0, fillColor: '#FF0000', strokeColor: '#FF0000'});
-                $('#act')[0].checked = false;
-
-            }
-            else {
-				ACTquads.setOptions({strokeWeight: 2.0, fillColor: 'green', strokeColor: 'green'});
-	           	$('#act')[0].checked = true;
-            }
-            createPeopleList();
-            delete_all_markers();  
-        }
-        function viccheck(){
-            if ($('#vic').is(':checked')){
-				VICquads.setOptions({strokeWeight: 2.0, fillColor: '#FF0000', strokeColor: '#FF0000'});
-                $('#vic')[0].checked = false;
-
-            }
-            else {
-				VICquads.setOptions({strokeWeight: 2.0, fillColor: 'green', strokeColor: 'green'});
-	           	$('#vic')[0].checked = true;
-            }
-            createPeopleList();
-            delete_all_markers();  
-        }
-        function sacheck(){
-            if ($('#sa').is(':checked')){
-				SAquads.setOptions({strokeWeight: 2.0, fillColor: '#FF0000', strokeColor: '#FF0000'});
-                $('#sa')[0].checked = false;
-
-            }
-            else {
-				SAquads.setOptions({strokeWeight: 2.0, fillColor: 'green', strokeColor: 'green'});
-	           	$('#sa')[0].checked = true;
-            }
-            createPeopleList();
-            delete_all_markers();  
-        }
-        function wacheck(){
-            if ($('#wa').is(':checked')){
-				WAquads.setOptions({strokeWeight: 2.0, fillColor: '#FF0000', strokeColor: '#FF0000'});
-                $('#wa')[0].checked = false;
-
-            }
-            else {
-				WAquads.setOptions({strokeWeight: 2.0, fillColor: 'green', strokeColor: 'green'});
-	           	$('#wa')[0].checked = true;
-            }
-            createPeopleList();
-            delete_all_markers();  
-        }
-        function tascheck(){
-            if ($('#tas').is(':checked')){
-				TASquads.setOptions({strokeWeight: 2.0, fillColor: '#FF0000', strokeColor: '#FF0000'});
-                $('#tas')[0].checked = false;
-
-            }
-            else {
-				TASquads.setOptions({strokeWeight: 2.0, fillColor: 'green', strokeColor: 'green'});
-	           	$('#tas')[0].checked = true;
-            }
-            createPeopleList();
-            delete_all_markers();  
-        }
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	    }
 	            
 
 		
+        function nswcheck(){
 
 
+            if ($('#nt').is(':checked')){
 
+                $('#nt')[0].checked = false;
+        		$('#nt').attr('checked', false);
+        		$('#nt').prop('checked', false);
+                $('#nt').append(data);
+                
+    
+            }
 
+            else {
+	           	$('#nt')[0].checked = true;
+	        	$('#nt').attr('checked', true);
+	        	$('#nt').prop('checked', true);
 
+            }
+            createPeopleList();
+            delete_all_markers();  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
+        }
 
 
     </script>
@@ -1029,28 +703,21 @@
     <script type="text/javascript">
     
     	// ---------------Main program----------------- \\
-        searchIndex = 0;
-        $('#loading').hide();
-        //$('#loading').show();
+        var searchIndex = 0;
         $('#btnNext').off('click').click(function(){
-
                 //alert('ahihi');
                 var year = $('#year').text();
                 if (year=='start'){
                   alert('please choose a year');
                 }
                 else{
-                	var btn = this;
-                	console.log(btn);
-                	this.disabled = true;
                   delete_all_markers();
                   searchIndex += 1;
                   var year = $('#year');
                   var states = $('#test ul');
                   $('#loading').show();
                   addPeopleEvent(year,states);
-                  
-                  setTimeout(function(){ btn.disabled = false; }, 4000);
+                  $('#loading').hide();
                 }
                 
         }) // show next result event
@@ -1070,9 +737,9 @@
               delete_all_markers();
               var year = $('#year');
               var states = $('#test ul');
-              //$('#loading').show();
+              $('#loading').show();
               addPeopleEvent(year,states);
-              //$('#loading').hide();
+              $('#loading').hide();
               //console.log(states);
               //var searchIndex = 0; // index of the result search.
               

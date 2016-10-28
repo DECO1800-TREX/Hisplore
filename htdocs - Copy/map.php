@@ -19,20 +19,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/stylesheet_main.css" media="screen"/>
 	<link rel="stylesheet" href="css/map_style.css" media="screen"/>
-    <style>
-    	#btnNext{
-			position: absolute;
-			bottom: 5%;
-			left:20%;
-			z-index: 5;
-    	}
-    	#loading{
-    		position: absolute;
-    		bottom: 15%;
-    		left: 20%;
-    		z-index: 0;
-    	}
-    </style>
+    
 	
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/site.js"></script>
@@ -120,12 +107,7 @@
       </div> -->
 	  
 	  <!-- not sure what this is -->
-	  <div id="map" class="col-sm-9" style="position: relative;"></div>
-	  
-      	
-      <button class="btn btn-lg btn-primary" id="btnNext">Show next Result</button>
-      <!-- <img id="loading" src="loading.gif" width="50" height="50"> -->
-      
+      <div id="map" class="col-sm-9"></div>
       <div class="col-sm-3">
 		<!-- un-needed, we dont search by text
         <div class="form-group">
@@ -145,7 +127,6 @@
 				<button class="btn btn-lg btn-primary" id="btnSearchNewspaper">Search Newspaper</button>
 			</div>
 			-->
-			
 			<div class="col-sm-3 btn-div">
 				<button class="btn btn-lg btn-primary" id="btnNext">Show next Result</button>
 			</div>
@@ -191,7 +172,8 @@
 	  
 	  
 	  
-	   	<!--- info divs--->
+	  
+	  	<!--- info divs--->
 		
 		<div id="info" class="info_content">
 			<div class="info_header">
@@ -199,12 +181,16 @@
 			<h2>About HISPLORE</h2>
 			</div>
 				<h3>What is HISPLORE? </h3>
-				<p>HISPLORE is an interactive timemap where our users can look through documents from trove (www.trove.nla.au). We know what you study a lot of Australian history at school so we designed an application that will allow you to search through the trove database for historical people in Australia. When the markers on the map are loaded, you will be able to view the birth date and place, occupation and articles on Australian historical people. Jump into Australian history with HISPLORE and learn something new about your country! </p>
+				<p>HISPLORE is an interactive timemap where our users can look through documents from trove (www.trove.nla.au). We know what you study a lot of Australian history at school so we designed an application that will allow you to search through the trove database for historical people in Australia. When the markers on the map has loaded, you will be able to view the birth date and place, occupation and articles on Australian historical people. Jump into Australian history with HISPLORE and learn something new about your country! </p>
 
 				<h3>How do we use it?</h3>
-				<p> By clicking on any region on the map whether it be Queensland, New South Wales or the Northern Territory, and then choosing a specific date on the timeline, you will be able to view the countless of documents on the map. Now you can click on a pin on the map and the document preview should come up. You can decide whether you want to read the documents of this person from Trove or save it for later.</p> <p>If you want to see or delete your saved searches simply click on the account tab and scroll down to view. On the right hand side of the saved documents there should be a delete button where you can easily remove the saved items you no longer want.</p>
+				<p> Hisplore is to be used for your studies. ... </p>
+
+				<p>Click on a pin either on the timeline or on the map and the document preview should come up. You can decide whether you want to read it or save it for later. Scroll down to the account section and you will be able to know how to delete these saved items!</p>
 
 			<h2>Options </h2>
+				<h3>Colour</h3>
+				<p>Do you have difficulty with colour? We have designed HISPLORE to be friendly to those suffering from colorblindness or any other vision-impairments. Simply click on the options button and select the right colour settings to suit your needs. </p>
 
 				<h3>Reading</h3>
 				<p>Do you have difficulty with reading? We have also design HISPLORE to be friendly with those who suffer from reading impairments. Simply click on the options button and select the settings under text-to-speech settings and font size settings to suit your needs.</p>
@@ -226,17 +212,6 @@
 				<h3>Logging Out </h3>
 				<p>
 				If you wish to log out at any time, simply press the “LOG OUT” button on the top right hand corner and you will be able to log out of your account. <strong>Remember:</strong> you wont be able to use the application if you are logged out.</p>
-				
-			<h2>About Us</h2>
-				<p>We are T-REX INC.,  a 5 person group who formed on the first day of contact sessions. We shared our vision together to create a timeline and geo-location scheme to visualise the data from Trove. </p>
-				<p>We all had our fair share of work, where Thuan, Park and Jonas handled most of the coding for the mapping of data. Gabrielle did most of the html and css designing of the pages and Breanna has helped a lot with the assistance in all areas including large amounts of research. </p>
-					
-				<p>If you wish to submit some feedback or any enquiries, please email Gabrielle Burey on <strong>gabrielle.burey@uq.net.au</strong>.</p>
-					
-				
-				<p>Members: Jonas Wong, Park Sang Ik, Thaun Duc Chu, Gabrielle Burey and Breanna Larkin</p>
-				
-				<p>Copyright &copy; 2016 TREX-INC.</p>
 
 		</div>
 		
@@ -250,11 +225,16 @@
 			<h2>Options</h2>
 			</div>
 			<div class="content">
-			<p>Here you can change the settings of the website's text size to suit you!</p>
+			<p>Here you can change the settings of the website to suit you!</p>
+			
+			<h3>Self-Reader</h3>
+			<p>Do you have difficulty in reading? If you click on the button "Read for me" the text-to-speech application will turn on!</p>
+			<button type="button" id="text-to-speech">Read for me!</button>
+			<button type="button" id="text-to-speech">Don't read for me.</button>
 			
 			<h3>Text Size</h3>
 			<p>Hard to read? Here you can change the size of the text!</p>
-			<table id="tsize_table">
+			<table id="fsize_table">
 				<tr>
 				<td><span id="small"><p>A</p></span></td>
 				<td><span id="medium"><h4>A</h4></span></td>
@@ -265,7 +245,6 @@
 			<!-- insert function by js to change css font size -->
 			</div>
 		</div>
-		
 	  
 	  
 	  
@@ -501,10 +480,7 @@
           //console.log(geotmp[0]);
           
           // the more of ran_const, the wider the spread in each marker
-          var ran_const = 4.0;
-          if (item.state == 'victoria' || item.state == 'act' || item.state == 'tasmania'){
-          	ran_const = 1.3;
-          }
+          var ran_const = 2.0;
           var tmp = Math.random();
           if (tmp>0.5){
             tmp2 = Math.random()*ran_const;
@@ -532,10 +508,9 @@
         });
          //console.log(marker);
           // contentHTML is the content of the pop-up of marker
-          var contentHTML = "<h2>"+item.searchTerm+"</h2>"
-          contentHTML += "<button onclick='save_people("+ "\""+ item.wikiUrl+ "\"" +")'>Save Search</button>"
-          contentHTML += "<br><hr><a target='_blank' href='"+item.wikiUrl +"'>Click For WikiPedia Link</a><br>"
-          
+          var contentHTML = "<h2>"+item.searchTerm+"</h2><br>"
+          contentHTML += "<a target='_blank' href='"+item.wikiUrl +"'>Click For WikiPedia Link</a><hr>"
+          contentHTML += "<button onclick='save_people("+ "\""+ item.searchTerm+ "\"" +")'>Save Search</button>"
           contentHTML += "<p> Some of the Trove Links</p>"
           var troveLinks = item.troveLinks;
           for (var i in troveLinks){
@@ -565,21 +540,17 @@
         }
 
         function save_people(term){
-        	//alert(term);
+        	alert(term);
         	// $.post("save_people.php",{term:term},function(data){
         	// 	alert(data);
         	// });
 
         	// alert("<?php echo $_SESSION['username'] ?>");
-        	$.post("save_people.php",{term:term},function(data){
-        		alert(data); 
-        	});
 
         }
 
       	
       	function delete_all_markers(){
-
           for (var i in markers){
             markers[i].setMap(null);
           }
@@ -665,9 +636,7 @@
       	window.initMap = function() {
 	            map = new google.maps.Map(document.getElementById('map'), {
 	              zoom: 4,
-	              center: {lat: -26.8241, lng: 133.7751},
-				  scrollwheel: false,
-				  disableDoubleClickZoom: true,
+	              center: {lat: -26.8241, lng: 133.7751}
 	            });
 	        
 
@@ -1029,28 +998,21 @@
     <script type="text/javascript">
     
     	// ---------------Main program----------------- \\
-        searchIndex = 0;
-        $('#loading').hide();
-        //$('#loading').show();
+        var searchIndex = 0;
         $('#btnNext').off('click').click(function(){
-
                 //alert('ahihi');
                 var year = $('#year').text();
                 if (year=='start'){
                   alert('please choose a year');
                 }
                 else{
-                	var btn = this;
-                	console.log(btn);
-                	this.disabled = true;
                   delete_all_markers();
                   searchIndex += 1;
                   var year = $('#year');
                   var states = $('#test ul');
                   $('#loading').show();
                   addPeopleEvent(year,states);
-                  
-                  setTimeout(function(){ btn.disabled = false; }, 4000);
+                  $('#loading').hide();
                 }
                 
         }) // show next result event
@@ -1070,9 +1032,9 @@
               delete_all_markers();
               var year = $('#year');
               var states = $('#test ul');
-              //$('#loading').show();
+              $('#loading').show();
               addPeopleEvent(year,states);
-              //$('#loading').hide();
+              $('#loading').hide();
               //console.log(states);
               //var searchIndex = 0; // index of the result search.
               

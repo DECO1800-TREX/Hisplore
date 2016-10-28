@@ -13,28 +13,6 @@ function escape($text){
 	global $conn;
 	return mysqli_real_escape_string($conn,$text);
 }
-function get_saved_search_by_user($username){
-	global $conn;
-	$query  = "SELECT * ";
-	$query .= "FROM search ";
-	$query .= "where username = '{$username}'";
-	
-	$results = mysqli_query($conn, $query);
-	// while ($res = mysqli_fetch_assoc($results)){
-	// 	var_dump($res);
-	// }
-	if (!$results){
-		return false;
-	}	
-	return $results;
-}
-function display_search($search){
-	$term = $search['term'];
-	echo "<li>";
-	echo "<a target='_blank' href='{$term}'>{$term}</a>";
-
-	echo "</li>";
-}
 function get_restaurants(){
 	global $conn;
 	$query  = "SELECT * ";
@@ -103,8 +81,8 @@ function add_new_menu_item($menu_item_name,$type,$description,$res_id){
 }
 function add_new_admin($username,$pass,$email){
 	global $conn;
-	$query  = "insert into admin(username,h_pass) ";
-	$query .= "values('{$username}','{$pass}')";
+	$query  = "insert into admin(username,h_pass,email) ";
+	$query .= "values('{$username}','{$pass}','{$email}')";
 	if (mysqli_query($conn,$query)){
 		return true;
 	}

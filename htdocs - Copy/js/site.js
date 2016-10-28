@@ -3,9 +3,6 @@ $(document).ready(function(){
 		$("#info").show();
 		$("#modal_background").show()
 		$("#options").hide();
-		$('#btnNext').hide();
-		console.log('ahihi');
-		console.log($('#btnNext'));
 		return false;
 		// return false stops default action of returning to original html page
 	});
@@ -13,7 +10,7 @@ $(document).ready(function(){
 		$("#options").show();
 		$("#modal_background").show()
 		$("#info").hide();
-		$('#btnNext').hide();
+		
 		return false;
 		// return false stops default action of returning to original html page
 	}); 
@@ -22,7 +19,6 @@ $(document).ready(function(){
 		$("#options").hide();
 		$("#info").hide();
 		$("#modal_background").hide();
-		$('#btnNext').show();
 	});
 	
 });

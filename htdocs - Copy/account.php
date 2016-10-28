@@ -5,7 +5,6 @@
 	if (!$_SESSION['username']){
 		redirect_to('index.php');
 	}
-	$username = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +16,6 @@
 		<link rel="stylesheet" href="css/account_style.css" />
 		<link rel="stylesheet" href="css/stylesheet_main.css" />
 		
-		
 		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="js/site.js"></script>
 		
@@ -27,6 +25,7 @@
 	</head>
 	
 	<body>
+	<div id="modal_background"></div>
 		<!-- Navbar -->
 		<header>
 			<nav>
@@ -40,30 +39,23 @@
 				</ul>
 			</nav>
 		</header>
-		<div id="modal_background"></div>
+		
 		<div id="account_body">
-			<h2><?php echo $_SESSION['username'];  ?>'s Account!</h2>
+			<h2>Welcome: <?php echo $_SESSION['username'];  ?></h2>
+			<h2> My Account!</h2>
 			<div id="account_photo">
 			<img src="images/account_photo.png" alt="account photo"></div>
 			<br><br><br><br><br> <!-- puts the saved searches underneath image -->
-			<h3><?php echo $_SESSION['username'];  ?>'s Saved Searches:</h3>
-			<ul>
-				<?php  
-					if (!$searches = get_saved_search_by_user($username)){
-						echo 'Wrong Query';
-					}
-					while ($search = mysqli_fetch_assoc($searches)){
-						display_search($search);
-					}
-
-				?>
-			</ul>
+			<h3>My Saved Searches:</h3>
 			
-			<!--<button type="button" class="bin_button"><span class="glyphicon glyphicon-trash"></span></button>-->
+			<tr>
+				<td class="saved_search">Saved Search</td>
+				<td><button type="button" class="bin_button"><span class="glyphicon glyphicon-trash"></span></button></td>
 				
-			
+			<tr>
 		</div>
-		<!--- info divs--->
+		
+	  	<!--- info divs--->
 		
 		<div id="info" class="info_content">
 			<div class="info_header">
@@ -71,12 +63,16 @@
 			<h2>About HISPLORE</h2>
 			</div>
 				<h3>What is HISPLORE? </h3>
-				<p>HISPLORE is an interactive timemap where our users can look through documents from trove (www.trove.nla.au). We know what you study a lot of Australian history at school so we designed an application that will allow you to search through the trove database for historical people in Australia. When the markers on the map are loaded, you will be able to view the birth date and place, occupation and articles on Australian historical people. Jump into Australian history with HISPLORE and learn something new about your country! </p>
+				<p>HISPLORE is an interactive timemap where our users can look through documents from trove (www.trove.nla.au). We know what you study a lot of Australian history at school so we designed an application that will allow you to search through the trove database for historical people in Australia. When the markers on the map has loaded, you will be able to view the birth date and place, occupation and articles on Australian historical people. Jump into Australian history with HISPLORE and learn something new about your country! </p>
 
 				<h3>How do we use it?</h3>
-				<p> By clicking on any region on the map whether it be Queensland, New South Wales or the Northern Territory, and then choosing a specific date on the timeline, you will be able to view the countless of documents on the map. Now you can click on a pin on the map and the document preview should come up. You can decide whether you want to read the documents of this person from Trove or save it for later.</p> <p>If you want to see or delete your saved searches simply click on the account tab and scroll down to view. On the right hand side of the saved documents there should be a delete button where you can easily remove the saved items you no longer want.</p>
+				<p> Hisplore is to be used for your studies. ... </p>
+
+				<p>Click on a pin either on the timeline or on the map and the document preview should come up. You can decide whether you want to read it or save it for later. Scroll down to the account section and you will be able to know how to delete these saved items!</p>
 
 			<h2>Options </h2>
+				<h3>Colour</h3>
+				<p>Do you have difficulty with colour? We have designed HISPLORE to be friendly to those suffering from colorblindness or any other vision-impairments. Simply click on the options button and select the right colour settings to suit your needs. </p>
 
 				<h3>Reading</h3>
 				<p>Do you have difficulty with reading? We have also design HISPLORE to be friendly with those who suffer from reading impairments. Simply click on the options button and select the settings under text-to-speech settings and font size settings to suit your needs.</p>
@@ -98,17 +94,6 @@
 				<h3>Logging Out </h3>
 				<p>
 				If you wish to log out at any time, simply press the “LOG OUT” button on the top right hand corner and you will be able to log out of your account. <strong>Remember:</strong> you wont be able to use the application if you are logged out.</p>
-				
-			<h2>About Us</h2>
-				<p>We are T-REX INC.,  a 5 person group who formed on the first day of contact sessions. We shared our vision together to create a timeline and geo-location scheme to visualise the data from Trove. </p>
-				<p>We all had our fair share of work, where Thuan, Park and Jonas handled most of the coding for the mapping of data. Gabrielle did most of the html and css designing of the pages and Breanna has helped a lot with the assistance in all areas including large amounts of research. </p>
-					
-				<p>If you wish to submit some feedback or any enquiries, please email Gabrielle Burey on <strong>gabrielle.burey@uq.net.au</strong>.</p>
-					
-				
-				<p>Members: Jonas Wong, Park Sang Ik, Thaun Duc Chu, Gabrielle Burey and Breanna Larkin</p>
-				
-				<p>Copyright &copy; 2016 TREX-INC.</p>
 
 		</div>
 		
@@ -122,11 +107,16 @@
 			<h2>Options</h2>
 			</div>
 			<div class="content">
-			<p>Here you can change the settings of the website's text size to suit you!</p>
+			<p>Here you can change the settings of the website to suit you!</p>
+			
+			<h3>Self-Reader</h3>
+			<p>Do you have difficulty in reading? If you click on the button "Read for me" the text-to-speech application will turn on!</p>
+			<button type="button" id="text-to-speech">Read for me!</button>
+			<button type="button" id="text-to-speech">Don't read for me.</button>
 			
 			<h3>Text Size</h3>
 			<p>Hard to read? Here you can change the size of the text!</p>
-			<table id="tsize_table">
+			<table id="fsize_table">
 				<tr>
 				<td><span id="small"><p>A</p></span></td>
 				<td><span id="medium"><h4>A</h4></span></td>
@@ -139,7 +129,12 @@
 		</div>
 		
 		
-	
+		<!---FOOTER--->
+		<footer>
+			<div class="copyright">
+				<p>Copyright (c) T-REX 2016</p>
+			</div>
+		</footer>
 		
 	</body>
 </html>

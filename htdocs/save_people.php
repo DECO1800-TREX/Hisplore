@@ -5,19 +5,25 @@
   if (!$_SESSION['username']){
     redirect_to('index.php');
   }
-
+  global $conn;
   $username = $_SESSION['username'];
   $term = $_POST['term'];
-  if (!$term){
-  	echo 'ahuhu';
+  $term = mysqli_real_escape_string($conn,$_POST['term']);
+  // if (!$term){
+  //  echo 'ahuhu';
+  // }
+  // else{
+  //  echo $term;
+  // }
+
+  $query  = "insert into search(username,term) ";
+  $query .= "values ('{$username}','{$term}')";
+  if (mysqli_query($conn,$query)){
+    echo 'Success save';
   }
   else{
-  	echo $term;
+    echo 'You have already save this search!';
   }
-  	global $conn;
-	$query  = "insert into search(username,term) ";
-	$query .= "values ('{$username}','{$term}')";
-	mysqli_query($conn,$query);
 ?>
 
 
