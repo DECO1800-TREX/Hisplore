@@ -254,13 +254,9 @@
 			
 			<h3>Text Size</h3>
 			<p>Hard to read? Here you can change the size of the text!</p>
-			<table id="tsize_table">
-				<tr>
-				<td><span id="small"><p>A</p></span></td>
-				<td><span id="medium"><h4>A</h4></span></td>
-				<td><span id="large"><h2>A</h2></span></td>
-				</tr>
-			</table>
+			<h3>Text Size</h3>
+			<p><em>Hard to read? Here you can change the size of the text!</em></p>
+			<button type="button" id="0">aaaaA</button><button type="button" id="1">A</button><button type="button" id="2">A</button>
 			
 			<!-- insert function by js to change css font size -->
 			</div>
@@ -1214,11 +1210,41 @@
             // }); // people list clicked
 
          }) // Button people search clicked
-
-
-
-
     </script>
+	
+	
+	
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+    //note no document.ready since we're loading this at the bottom of the page
+
+    //make an array of 3 sizes per set of elements
+    // this might work better than just making the font bigger or smaller
+    // lets you do some research on what font sizes don't break everything
+    var smallSizes = [0.8, 1.3, 1.8];
+    var mediumSizes = [1.5, 2, 2.5];
+    var largeSizes = [2, 3, 4];
+    //add event listeners to the buttons
+    $(document).on('click', 'button', function(event) {
+        event.preventDefault(); //don't do what you'd normally do
+
+        // this.id returns the id of the element as a string.
+        // so if they click on button with id 0, this.id resolves to 0.
+        // so we can pick indexes of our size arrays out
+        // remember arrays are 0 index.
+        // arr = [1, 2, 3, 4];  arr[0] would be 1.
+        $(".small-size").css('font-size', smallSizes[this.id] + 'em');
+        $(".medium-size").css('font-size', mediumSizes[this.id] + 'em');
+        $(".large-size").css('font-size', largeSizes[this.id] + 'em');
+    });
+    </script>
+	
+	
+	
+	
+	
+	
     
   </body>
 </html>
